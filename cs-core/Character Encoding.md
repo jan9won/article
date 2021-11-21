@@ -1,6 +1,6 @@
 # Character Encoding
 
-> Character encoding basics for first time learners and web devs.
+> Character encoding basics for beginners and web devs.
 
 ## How To Map Character Codes To A Table
 ### Map Necessary English Characters Into A Single Table
@@ -35,18 +35,18 @@
 
 ## References
 - Primary Reference
-    - https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
+	- https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
 - ASCII
 - Code PAge
 - EUC
 - ANSI
 - Unicode
 - utf-16, Endians, Byte Order Mark
-    - https://en.wikipedia.org/wiki/UTF-16
-    - https://docs.microsoft.com/en-us/globalization/encoding/byte-order-mark
+	- https://en.wikipedia.org/wiki/UTF-16
+	- https://docs.microsoft.com/en-us/globalization/encoding/byte-order-mark
 - UTF-8
 - Hangul
-    - CP949
-    - Unified Hangul Enoding
-    - Comparison
+	- CP949
+	- Unified Hangul Enoding
+	- Comparison
 - Web Compatibility
