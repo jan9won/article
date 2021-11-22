@@ -27,11 +27,12 @@
 ### UTF-8 vs EUC-KR vs CP949
 ### Which Encoding For What Use
 
-## More About Common Compatibility Issues On Web
-### Compatibility With Backend Servers
-### Compatibility With User Operating System's Encoding And Locale
-### Compatibility With Files
-### Compatibility With Network Protocols (NGINX)
+## More About Common Compatibility Issues
+### Compatibility Between Backend Services
+### Compatibility Between Client App And Backend Servers
+### Compatibility Between Client App And It’s Operating System's Encoding Or Locale
+### Compatibility In Files
+### Compatibility In Network Protocols (NGINX/Apache)
 
 ## References
 - Primary Reference
