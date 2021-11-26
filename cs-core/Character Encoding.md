@@ -1,11 +1,40 @@
 # Character Encoding
 
-> Character encoding basics for beginners and web devs.
+Character encoding basics for beginners.
+
+> **Reviews**
+>
+> - last reviewed : 2021-11-24
+> - related versions
+>   - Unicode : 2021-9-14
+>   - ECMAScript : 2021-11-20  [Link](https://tc39.es/ecma262/#sec-terms-and-definitions-string-value)
 
 ## How To Map Character Codes To A Table
+
 ### Map Necessary English Characters Into A Single Table
-#### After The Era Of Telegraphy
+<<<<<<< Updated upstream
+#### Short History (from wikipedia)
+
+- Optical Telegraph Codes
+- Electrical Telegraph Codes
+- Automatic Telegraph Codes
+
 #### ASCII
+
+Improved version of telegraph code set, for computational use.
+=======
+#### After The Era Of Telegraphy
+
+Back then, there was no need for computational
+
+#### ASCII
+
+They had very limited space of memory, so necessary characters were stuffed in 7-bits.
+>>>>>>> Stashed changes
+
+1. There's Control Characters, which includes things like space and delete.
+2. And There are alphabets and special characters on your keyboards.
+
 ### Map More Languages In Separate Tables
 #### Code Page
 #### EUC (Extended Unix Code)
@@ -28,6 +57,7 @@
 ### Which Encoding For What Use
 
 ## More About Common Compatibility Issues And Setting Up Environments
+
 ### Between Shells
 
 export LANG=en_US.UTF-8
@@ -35,9 +65,12 @@ export LANG=en_US.UTF-8
 ### Between Backend Services
 
 ### Between Client App And Backend Servers
+
 ### Between Client App And It’s Operating System's Encoding Or Locale
-### Compatibility In Files
-### Compatibility In Network Protocols (NGINX/Apache)
+
+### In Files
+
+### Between Network Protocols (NGINX/Apache)
 
 ## References
 - Primary Reference
