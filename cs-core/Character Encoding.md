@@ -56,12 +56,21 @@ They had very limited space of memory, so necessary characters were stuffed in 7
 ### UTF-8 vs EUC-KR vs CP949
 ### Which Encoding For What Use
 
-## More About Common Compatibility Issues
-### Compatibility Between Backend Services
-### Compatibility Between Client App And Backend Servers
-### Compatibility Between Client App And It’s Operating System's Encoding Or Locale
-### Compatibility In Files
-### Compatibility In Network Protocols (NGINX/Apache)
+## More About Common Compatibility Issues And Setting Up Environments
+
+### Between Shells
+
+export LANG=en_US.UTF-8
+
+### Between Backend Services
+
+### Between Client App And Backend Servers
+
+### Between Client App And It’s Operating System's Encoding Or Locale
+
+### In Files
+
+### Between Network Protocols (NGINX/Apache)
 
 ## References
 - Primary Reference
