@@ -21,16 +21,7 @@ Character encoding basics for beginners.
 
 #### ASCII
 
-Improved version of telegraph code set, for computational use.
-=======
-#### After The Era Of Telegraphy
-
-Back then, there was no need for computational
-
-#### ASCII
-
-They had very limited space of memory, so necessary characters were stuffed in 7-bits.
->>>>>>> Stashed changes
+>  Improved version of telegraph code set, for computational use.
 
 1. There's Control Characters, which includes things like space and delete.
 2. And There are alphabets and special characters on your keyboards.
@@ -56,7 +47,7 @@ They had very limited space of memory, so necessary characters were stuffed in 7
 ### UTF-8 vs EUC-KR vs CP949
 ### Which Encoding For What Use
 
-## More About Common Compatibility Issues And Setting Up Environments
+## More About Common Compatibility Issues And Environment Setups
 
 ### Between Shells
 
