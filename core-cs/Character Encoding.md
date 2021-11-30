@@ -5,9 +5,28 @@ Character encoding basics for beginners.
 > **Reviews**
 >
 > - last reviewed : 2021-11-24
-> - related versions
->   - Unicode : 2021-9-14
->   - ECMAScript : 2021-11-20  [Link](https://tc39.es/ecma262/#sec-terms-and-definitions-string-value)
+>
+> **Related Versions**
+>
+> - Unicode : 14.0.0
+> - ECMAScript : 12th edition
+>
+> **References**
+>
+> * [Primary Reference (blog)](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
+> * ASCII
+> * Code PAge
+> * EUC
+> * ANSI
+> * Unicode
+> * [utf-16](https://en.wikipedia.org/wiki/UTF-16)
+> * [Endians and Byte Order Mark](https://docs.microsoft.com/en-us/globalization/encoding/byte-order-mark)
+> * UTF-8
+> * Hangul
+>   - [CP949]
+>   - [Unified Hangul Enoding]
+>   - [Comparison]
+> * Web Compatibility
 
 ## How To Map Character Codes To A Table
 
@@ -62,21 +81,3 @@ export LANG=en_US.UTF-8
 ### In Files
 
 ### Between Network Protocols (NGINX/Apache)
-
-## References
-- Primary Reference
-	- https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
-- ASCII
-- Code PAge
-- EUC
-- ANSI
-- Unicode
-- utf-16, Endians, Byte Order Mark
-	- https://en.wikipedia.org/wiki/UTF-16
-	- https://docs.microsoft.com/en-us/globalization/encoding/byte-order-mark
-- UTF-8
-- Hangul
-	- CP949
-	- Unified Hangul Enoding
-	- Comparison
-- Web Compatibility
