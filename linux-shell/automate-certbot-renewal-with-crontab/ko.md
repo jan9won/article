@@ -1,18 +1,5 @@
 # Crontab 으로 Certbot 리뉴얼 자동화하기
 
-> **Reviews**
->
-> - last reviewed : 2021-11-30
->
-> **Related Versions**
->
-> - certbot : 1.21.0
->
-> **References**
->
-> * [letsencrypt guide](https://letsencrypt.org/docs/integration-guide/#when-to-renew)
-
-
 
 ## 개요
 
@@ -51,4 +38,17 @@ sudo crontab -e
 * `> /path/to/log/file` 실행 결과를 볼 수 있도록 아웃풋을 파일에 저장해준다. 
 
   
+> **Reviews**
+>
+> - last reviewed : 2021-11-30
+>
+> **Related Versions**
+>
+> - certbot : 1.21.0
+>
+> **References**
+>
+> * [letsencrypt guide](https://letsencrypt.org/docs/integration-guide/#when-to-renew)
+
+
 

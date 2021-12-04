@@ -1,19 +1,5 @@
 # Auto-Renew Certbot Certificates With Crontab
 
-> **Reviews**
->
-> - last reviewed : 2021-11-30
->
-> **Related Versions**
->
-> - certbot : 1.21.0
->
-> **References**
->
-> * [letsencrypt guide](https://letsencrypt.org/docs/integration-guide/#when-to-renew)
-
-
-
 ## Summary
 
 Lets-Encrypt recommends users to force-renew certificates at least 30 days before expiration. Certbot's default lifetime is set to 90 days, so renewing once in 60 days will do. (If you don't Letsencrypt will notice you via email)
@@ -51,4 +37,16 @@ sudo crontab -e
 * `> /path/to/log/file` Write output to a log file to check the result later.
 
   
+
+> **Reviews**
+>
+> - last reviewed : 2021-11-30
+>
+> **Related Versions**
+>
+> - certbot : 1.21.0
+>
+> **References**
+>
+> * [letsencrypt guide](https://letsencrypt.org/docs/integration-guide/#when-to-renew)
 
