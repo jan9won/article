@@ -27,7 +27,7 @@ Character encoding basics for beginners.
 > * [Comparison]()
 > * Web Compatibility
 
----- 
+----
 
 ## How To Map Character Codes To A Table
 
@@ -96,7 +96,7 @@ Length of character
 
 ##### UTF-8
 
----- 
+----
 
 ## More About Common Compatibility Issues And Environment Setups
 
@@ -147,7 +147,3 @@ Common system encodings
 - Mac and Unix-Like Systems : 
 - Android
 - IOS
-
-[1]:	https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
-[2]:	https://en.wikipedia.org/wiki/UTF-16
-[3]:	https://docs.microsoft.com/en-us/globalization/encoding/byte-order-mark
