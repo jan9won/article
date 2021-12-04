@@ -1,16 +1,6 @@
 #  Animation Libraries for Web/Hybrid Apps
 
-> **Reviews**
->
-> - last reviewed : 
->
-> **Related Versions**
->
-> - 
->
-> **References**
->
-> * 
+----
 
 ##  What Are The Options?
 
@@ -63,6 +53,8 @@
 
 - It can make production process more complex and unmaintainable without a lottie-dedicated designer. Designer should be familiar with the library and it's limitations. And be able to make an optimized AfterEffects project for your target platforms.
 
+----
+
 ## Some Tips
 
 ### So What Should I Use?
@@ -90,6 +82,8 @@
 
   1.  https://codepen.io/tigt/post/improving-svg-rendering-performance
 
+----
+
 ## Examples of Lottie Implementation
 
 ### Kakao Talk Background Animations for Event Purposes
@@ -104,10 +98,25 @@
 1.  They use lottie for every platform.
 2.  They serve bodymovin json file from cache (in mac, it's in here : /Users/jangwonsuh/library/Containers/com.kakao.kakaotalkmac/Data/Library/Caches)
 
-#### why they use this
+#### why they used this (my opinion)
 
 1.  Data should be loaded right after user opens the application, because it's played without any user's action.
 2.  Data should be updated by network without the whole application update, because it will be updated irregularly.
 3.  You'll need many different sized GIF as this app has plenty of platforms supported.
 4.  So data should be a small as possible.
 5.  Lottie library and embedmend inside the view can be done in first installation and reused.
+
+----
+
+> **Reviews**
+>
+> - last reviewed : 
+>
+> **Related Versions**
+>
+> - 
+>
+> **References**
+>
+> * 
+
