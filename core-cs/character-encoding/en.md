@@ -2,31 +2,6 @@
 
 Character encoding basics for beginners.
 
-> **Reviews**
-> 
-> - last reviewed : 2021-11-24
-> 
-> **Related Versions**
-> 
-> - Unicode : 14.0.0
-> - ECMAScript : 12th edition
-> 
-> **References**
-> 
-> * [Primary Reference (blog)][1]
-> * ASCII
-> * Code PAge
-> * EUC
-> * ANSI
-> * Unicode
-> * [utf-16][2] , [Endians and Byte Order Mark][3]
-> * [UTF-8]()
-> * Hangul
->   * [CP949]()
->   * [Unified Hangul Enoding]()
-> * [Comparison]()
-> * Web Compatibility
-
 ---- 
 
 ## How To Map Character Codes To A Table
@@ -148,6 +123,29 @@ Common system encodings
 - Android
 - IOS
 
-[1]:	https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
-[2]:	https://en.wikipedia.org/wiki/UTF-16
-[3]:	https://docs.microsoft.com/en-us/globalization/encoding/byte-order-mark
+----
+
+> **Reviews**
+> 
+> - last reviewed : 2021-11-24
+> 
+> **Related Versions**
+> 
+> - Unicode : 14.0.0
+> - ECMAScript : 12th edition
+> 
+> **References**
+> 
+> * [Primary Reference (blog)][1]
+> * ASCII
+> * Code PAge
+> * EUC
+> * ANSI
+> * Unicode
+> * [utf-16][2] , [Endians and Byte Order Mark][3]
+> * [UTF-8]()
+> * Hangul
+>   * [CP949]()
+>   * [Unified Hangul Enoding]()
+> * [Comparison]()
+> * Web Compatibility
