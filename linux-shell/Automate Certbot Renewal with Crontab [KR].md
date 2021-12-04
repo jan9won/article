@@ -1,4 +1,4 @@
-# Crontab 으로 Certbot 리뉴얼 자동화하기.md
+# Crontab 으로 Certbot 리뉴얼 자동화하기
 
 > **Reviews**
 >
@@ -24,7 +24,7 @@ Lets-Encrypt 메뉴얼에서는 만료 30 일 전에, 그러니까 60 일 에 �
 
 ## 리뉴얼 방법
 
-1. root 크론탭 스크립트를 연다.
+1. root 권한으로 크론탭 설정을 연다.
 
 ```shell
 sudo crontab -e
@@ -33,19 +33,20 @@ sudo crontab -e
 2. 리뉴얼 명령어를 입력한다.
 
 ```crontab
-0 0 */60 * * timeout 60 certbot -d yourdomain,other.domain --force-renewal > /path/to/log/file
+0 0 */60 * * timeout 60 certbot -d your.domain1.com,domain2.com --force-renewal > /path/to/log/file
 ```
 
 * `0 0 */60 * *` 60 일에 한 번씩.
 
-* `-d` 플래그 뒤에 도메인을 콤마로 구분하여 입력한다.
+* `-d [domain]` 해당 플래그 뒤에 여러 도메인을 콤마로 구분하여 입력한다.
 
 * `--force-renewal` 플래그를 사용하면 더이상의 인터랙션을 요구하지 않고 기존 인증서를 찾아서 리뉴얼해준다.
 
 * `timeout 60`
 
-  * 도메인을 잘못 입력한 경우 등 입력 오류시에는 인터렉티브 셸로 넘어갈 수 있다. 그러면 crontab timeout 설정시간 전까지 프로세스가 종료되지 않기 때문에 적당한 타임아웃을 설정한다.
-  * 주의해야할 점은 도메인 갯수나 letsencrypt 서버 상태에 따라서 오래 걸릴 수 있기 때문에 첫 실행에서 테스트 해보고 적절한 시간을 찾는다.
+  * 도메인을 잘못 입력했거나 처음 발급반는 도메인이 포함된 경우에는 인터렉티브 셸로 넘어갈 수 있다. 
+  * 이런 오류상황에는 crontab timeout 설정시간 전까지 프로세스가 종료되지 않기 때문에 적당한 타임아웃을 설정한다.
+  * 주의해야할 점은 도메인 갯수나 letsencrypt 서버 상태에 따라서 오래 걸릴 수 있기 때문에 도메인이 많은 경우 리뉴얼에 실패할 수 있다. 이런 경우 타임아웃 설정하지 않는다.
 
 * `> /path/to/log/file` 실행 결과를 볼 수 있도록 아웃풋을 파일에 저장해준다. 
 
