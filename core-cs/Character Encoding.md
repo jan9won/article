@@ -3,81 +3,151 @@
 Character encoding basics for beginners.
 
 > **Reviews**
->
+> 
 > - last reviewed : 2021-11-24
->
+> 
 > **Related Versions**
->
+> 
 > - Unicode : 14.0.0
 > - ECMAScript : 12th edition
->
+> 
 > **References**
->
-> * [Primary Reference (blog)](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
+> 
+> * [Primary Reference (blog)][1]
 > * ASCII
 > * Code PAge
 > * EUC
 > * ANSI
 > * Unicode
-> * [utf-16](https://en.wikipedia.org/wiki/UTF-16)
-> * [Endians and Byte Order Mark](https://docs.microsoft.com/en-us/globalization/encoding/byte-order-mark)
-> * UTF-8
+> * [utf-16][2] , [Endians and Byte Order Mark][3]
+> * [UTF-8]()
 > * Hangul
->   - [CP949]
->   - [Unified Hangul Enoding]
->   - [Comparison]
+>   * [CP949]()
+>   * [Unified Hangul Enoding]()
+> * [Comparison]()
 > * Web Compatibility
+
+---- 
 
 ## How To Map Character Codes To A Table
 
 ### Map Necessary English Characters Into A Single Table
-<<<<<<< Updated upstream
+
 #### Short History (from wikipedia)
 
-- Optical Telegraph Codes
-- Electrical Telegraph Codes
-- Automatic Telegraph Codes
+> Concept of encoding character into serialized data started from the invention of telegraph.
+
+* Optical Telegraph Codes
+* Electrical Telegraph Codes
+* Automatic Telegraph Codes
+	* This one actually included control characters
 
 #### ASCII
 
->  Improved version of telegraph code set, for computational use.
+>  Improved telegraph code set for computational use.
 
-1. There's Control Characters, which includes things like space and delete.
-2. And There are alphabets and special characters on your keyboards.
+1. It includes Control Characters, which are characters used for computational uses like space, delete and network protocol idicators.
+2. All the characters on your keyboard is included. This added lower cased characters and special characters. 
 
 ### Map More Languages In Separate Tables
+
 #### Code Page
+
+by microsoft
+each language is mapped on separate pages
+
 #### EUC (Extended Unix Code)
+
+(Made for this, by this organization)
+
+Korean devs will be familiar to EUC-KR encoding when using remote server 
+
 #### ANSI Is Not A Fixed Standard
 
-## How to Map Every Language In A Single Table
-### Unicode
+(ANSI is made for this)
+
+ANSI does not indicate a single standard. What people refers to ANSI is usually (these ones)
+
+(These standards look like this) 
+
+#### Limitation of Multiple-Table Apporach
+
+### Unicode, Map All the Languages on a Single Table
+
+How It Looks Like
+
+- Unlimited incremetal mapping, added in order of appearence.
+- Each language is range sequentially (i.e. English is 61-7A and Korean is AC00-D7A3).
+- It includes emojis and even fictional languages like (startrek thing). Unicode is expanding every update, as it’s team accepts proposals.
+
 ### Needs For Encoding
 
-## How To Encode Unicode Characters More Efficiently
-### Fixed Length Encoding
-#### UCS-2
-#### UTF-32
-### Variable Length Encoding
-#### UTF-16
-#### UTF-8
+Length of character
 
-## More About Hangul Encoding
-### UTF-8 vs EUC-KR vs CP949
-### Which Encoding For What Use
+#### Fixed Length Encoding
+
+##### UCS-2
+
+##### UTF-32
+
+#### Variable Length Encoding
+
+##### UTF-16
+
+##### UTF-8
+
+---- 
 
 ## More About Common Compatibility Issues And Environment Setups
 
+### More About Hangul Encoding
+
+UTF-8 vs EUC-KR vs CP949
+
+Which Encoding For What Use
+
 ### Between Shells
 
-export LANG=en_US.UTF-8
+you can ensure character encoding by setting environment variable `LANG` 
 
-### Between Backend Services
+export LANG=en\_US.UTF-8
 
-### Between Client App And Backend Servers
+### Servers (Nginx and Apache)
 
-### Between Client App And It’s Operating System's Encoding Or Locale
+configure it to UTF-8
 
-### In Files
+nginx config
+```nginx
 
-### Between Network Protocols (NGINX/Apache)
+```
+
+apache config
+```apache
+
+```
+
+### Your Web-App and Client’s Operating System
+
+Don’t forget encoding attribute.
+
+Check client’s encoding when talking to client’s machine directly through streams, like reading file.
+
+### Files and Filesystem
+
+File itself can be encoded in various ways.
+
+So check file’s encoding before taking operations.
+```bash
+
+```
+
+Common system encodings
+- Windows until 8 : 
+- Windows from 9 : 
+- Mac and Unix-Like Systems : 
+- Android
+- IOS
+
+[1]:	https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
+[2]:	https://en.wikipedia.org/wiki/UTF-16
+[3]:	https://docs.microsoft.com/en-us/globalization/encoding/byte-order-mark
