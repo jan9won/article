@@ -1,6 +1,6 @@
 #  Animation Libraries for Web/Hybrid Apps
 
-----
+---
 
 ##  What Are The Options?
 
