@@ -1,7 +1,8 @@
-
-Character encoding for beginners.
+Introduction on character encoding.
 
 {{TOC}}
+
+[TOC]
 
 ---
 
@@ -21,11 +22,11 @@ First computational character encoding, developed by ASA (curruntly ANSI). It ev
 
 It includes lower and upper case English characters, numerals, punctuations and control characters in 7-bit range (0-127).
 
-![ASCII chart from a pre-1972 printer manual. Source - Wikipedia](images/1.png)
+![ASCII chart from a pre-1972 printer manual. Source - Wikipedia](images/ascii.png)
 
-Control characters included user interfaces like space and delete and messaging interfaces like protocol status.
+Control characters include non-visible character instructions like BS(backspace), CR(carriage return) and transmission controls like ESC (escape).
 
-All the special characters and control characters on current QWERTY keyboards are in ASCII.
+ASCII includes All the special characters and control characters on contemporary QWERTY keyboards.
 
 ## Needs for More Languages
 
@@ -45,7 +46,7 @@ Korean developers would be familiar with EUC-KR encoding when using remote serve
 
 **Limitations**
 
-### ANSI Is Not A Fixed Standard
+### ANSI (Not A Fixed Standard)
 
 (ANSI is made for this)
 
@@ -53,11 +54,11 @@ ANSI does not indicate a single standard. What people refers to ANSI is usually 
 
 (These standards look like this) 
 
-### Limitation of All Multi-Table Apporach
+### Limitation of Multi-Table Apporachs
 
 Limitations
 
-### Unicode
+## Unicode
 > Map All the Languages on a Single Table
 
 How characters are encoded
@@ -66,7 +67,7 @@ How characters are encoded
 - Each language is range sequentially (i.e. English is 61-7A and Korean is AC00-D7A3).
 - It includes emojis and even fictional languages like (startrek thing). Unicode is expanding every update, as it’s team accepts proposals.
 
-## Needs For Larger Encoding
+### Needs For Larger Encoding
 
 As UNICODE invented.
 
@@ -82,43 +83,53 @@ As UNICODE invented.
 
 #### UTF-8
 
----- 
+----
 
-## Common Compatibility Issues And Recommended Environment Setup
+## Common Compatibility Issues And Environment Setup
 
 ### Hangul Encoding
 
-UTF-8 vs EUC-KR vs CP949
+#### UTF-8 vs EUC-KR vs CP949
 
-Which Encoding For What Use
+#### When to Use Which
 
 ### Between Shells
 
-you can ensure character encoding by setting environment variable `LANG` 
+>  Related Article : [Different Kind of Shells, Login Shell and Interactive Shell](./difference-between-login-shell-and-non-login-shell)
 
-export LANG=en\_US.UTF-8
+##### Login Shells
 
-### Proxy Servers (Nginx and Apache)
+**???** Login shells will read your environment variables. You can configure character encoding with environment variable `LANG`, like `export LANG=en\_US.UTF-8`
+
+##### Non-Login Shells
+
+
+
+### Proxy Servers
 
 configure it to UTF-8
 
-nginx config
+#### nginx config
+
 ```nginx
+# /path/to/nginx.conf
 
 ```
 
-apache config
+#### apache config
+
 ```apache
+# /path/to/apache.conf
 
 ```
 
-### Recognizing Client’s Operating System
+### Client Side Locale
 
 Don’t forget encoding attribute.
 
 Check client’s encoding when talking to client’s machine directly through streams, like reading file.
 
-### When Using and Creating Files
+### Create And Read Files
 
 File itself can be encoded in various ways.
 
