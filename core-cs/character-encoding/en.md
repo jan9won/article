@@ -1,43 +1,51 @@
-# Character Encoding
 
-Character encoding basics for beginners.
+Character encoding for beginners.
 
----- 
+{{TOC}}
 
-## How To Map Character Codes To A Table
+---
 
-### Map Necessary English Characters Into A Single Table
+## Short History
 
-#### Short History (from wikipedia)
+Character encodings evolved to represent necessary characters in a limited lenght of serialized data, for electrical message transmission. 
 
-> Concept of encoding character into serialized data started from the invention of telegraph.
+Modern character encoding started with an invention of telegraph. It intended to make messaging protocol as efficient as possible, as messaging costs were high. So it only had upper case English letters, numerals and some puncuations. 
 
-* Optical Telegraph Codes
-* Electrical Telegraph Codes
-* Automatic Telegraph Codes
-	* This one actually included control characters
+As the era of computer started, cost of messaging gone down, and  needs for more various characters has grown continuously. So since then, computer-dedicted character ecodings were created and evolved.  
 
-#### ASCII
 
->  Improved telegraph code set for computational use.
+## ASCII
+> American Standard Code for Information Interchange
 
-1. It includes Control Characters, which are characters used for computational uses like space, delete and network protocol idicators.
-2. All the characters on your keyboard is included. This added lower cased characters and special characters. 
+First computational character encoding, developed by ASA (curruntly ANSI). It evolved from 7-bit teleprinter codes.
 
-### Map More Languages In Separate Tables
+It includes lower and upper case English characters, numerals, punctuations and control characters in 7-bit range (0-127).
 
-#### Code Page
+![ASCII chart from a pre-1972 printer manual. Source - Wikipedia](images/1.png)
 
-by microsoft
-each language is mapped on separate pages
+Control characters included user interfaces like space and delete and messaging interfaces like protocol status.
 
-#### EUC (Extended Unix Code)
+All the special characters and control characters on current QWERTY keyboards are in ASCII.
+
+## Needs for More Languages
+
+### Code Page
+> Map each language in separate table.
+
+Made by microsoft. Each language is mapped on separate "Code Page" represented like CP292(Korean).
+
+**Limitations**
+
+### EUC
+> Extended Unix Code
 
 (Made for this, by this organization)
 
-Korean devs will be familiar to EUC-KR encoding when using remote server 
+Korean developers would be familiar with EUC-KR encoding when using remote server.
 
-#### ANSI Is Not A Fixed Standard
+**Limitations**
+
+### ANSI Is Not A Fixed Standard
 
 (ANSI is made for this)
 
@@ -45,37 +53,40 @@ ANSI does not indicate a single standard. What people refers to ANSI is usually 
 
 (These standards look like this) 
 
-#### Limitation of Multiple-Table Apporach
+### Limitation of All Multi-Table Apporach
 
-### Unicode, Map All the Languages on a Single Table
+Limitations
 
-How It Looks Like
+### Unicode
+> Map All the Languages on a Single Table
+
+How characters are encoded
 
 - Unlimited incremetal mapping, added in order of appearence.
 - Each language is range sequentially (i.e. English is 61-7A and Korean is AC00-D7A3).
 - It includes emojis and even fictional languages like (startrek thing). Unicode is expanding every update, as it’s team accepts proposals.
 
-### Needs For Encoding
+## Needs For Larger Encoding
 
-Length of character
+As UNICODE invented.
 
-#### Fixed Length Encoding
+### Fixed Length Encoding
 
-##### UCS-2
+#### UCS-2
 
-##### UTF-32
+#### UTF-32
 
-#### Variable Length Encoding
+### Variable Length Encoding
 
-##### UTF-16
+#### UTF-16
 
-##### UTF-8
+#### UTF-8
 
 ---- 
 
-## More About Common Compatibility Issues And Environment Setups
+## Common Compatibility Issues And Recommended Environment Setup
 
-### More About Hangul Encoding
+### Hangul Encoding
 
 UTF-8 vs EUC-KR vs CP949
 
@@ -87,7 +98,7 @@ you can ensure character encoding by setting environment variable `LANG`
 
 export LANG=en\_US.UTF-8
 
-### Servers (Nginx and Apache)
+### Proxy Servers (Nginx and Apache)
 
 configure it to UTF-8
 
@@ -101,13 +112,13 @@ apache config
 
 ```
 
-### Your Web-App and Client’s Operating System
+### Recognizing Client’s Operating System
 
 Don’t forget encoding attribute.
 
 Check client’s encoding when talking to client’s machine directly through streams, like reading file.
 
-### Files and Filesystem
+### When Using and Creating Files
 
 File itself can be encoded in various ways.
 
@@ -116,14 +127,14 @@ So check file’s encoding before taking operations.
 
 ```
 
-Common system encodings
+### Operating Systems and Runtimes
 - Windows until 8 : 
 - Windows from 9 : 
 - Mac and Unix-Like Systems : 
 - Android
 - IOS
 
-----
+---
 
 > **Reviews**
 > 
