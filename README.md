@@ -20,7 +20,9 @@ Please follow common rules below, on every commit to this repository.
     - the result is `<category>/<escaped title>`
 4. create new directory on the base directory, with the name the branch. `mkdir <category>/<escaped title>`
 6. go to the created directory
-5. create mdx article files named with it's language code. i.e. `touch en.mdx ko.mdx`. language code should follow 2-character ISO standard.
+5. create mdx article files named with it's language code. i.e. `touch en.mdx ko.mdx`. 
+    - language code should follow 2-character ISO standard.
+    - both .md and .mdx extensions are acceptable. use .mdx when it has mdx components in it.
 6. create `images` folder. images embedded in the article should be in here.
 7. create `thumb.png` for thumbnail. the size should be 1280x720
 8. create meta.json for metadata. the detail of this file is below
