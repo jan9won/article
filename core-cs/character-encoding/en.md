@@ -28,37 +28,40 @@ Control characters include non-visible character instructions like BS(backspace)
 
 ASCII includes All the special characters and control characters on contemporary QWERTY keyboards.
 
-## Needs for More Languages
+## ☑️ Needs for More Languages
 
-### Code Page
+### Code Page and ANSI
 > Map each language in separate table.
+
+#### ☑️ Code Page
 
 Made by microsoft. Each language is mapped on separate "Code Page" represented like CP292(Korean).
 
 **Limitations**
 
-### EUC
+**
+
+#### ANSI is Not A Fixed Standard Name
+
+What people referres to ANSI are these Code Pages in most cases.
+
+- Code Page 1252 of Microsoft Windows (alias : windows-1252)
+- Code page 437 of IBM PC
+
+### ☑️ EUC
 > Extended Unix Code
 
 (Made for this, by this organization)
 
 Korean developers would be familiar with EUC-KR encoding when using remote server.
 
-**Limitations**
+**Limitations
 
-### ANSI (Not A Fixed Standard)
-
-(ANSI is made for this)
-
-ANSI does not indicate a single standard. What people refers to ANSI is usually (these ones)
-
-(These standards look like this) 
-
-### Limitation of Multi-Table Apporachs
+### ☑️ Limitation of Multi-Table Apporachs
 
 Limitations
 
-## Unicode
+### ☑️ Unicode
 > Map All the Languages on a Single Table
 
 How characters are encoded
@@ -67,21 +70,23 @@ How characters are encoded
 - Each language is range sequentially (i.e. English is 61-7A and Korean is AC00-D7A3).
 - It includes emojis and even fictional languages like (startrek thing). Unicode is expanding every update, as it’s team accepts proposals.
 
-### Needs For Larger Encoding
+## ☑️ Unicode Encodings 
 
-As UNICODE invented.
+Encodings were quite linear and plain before Unicode.
+
+But since Unicode was invented, 
 
 ### Fixed Length Encoding
 
-#### UCS-2
+#### ☑️ UCS-2
 
-#### UTF-32
+#### ☑️ UTF-32
 
 ### Variable Length Encoding
 
-#### UTF-16
+#### ☑️ UTF-16
 
-#### UTF-8
+#### ☑️ UTF-8
 
 ----
 
@@ -89,11 +94,11 @@ As UNICODE invented.
 
 ### Hangul Encoding
 
-#### UTF-8 vs EUC-KR vs CP949
+#### ☑️ UTF-8 vs EUC-KR vs CP949
 
-#### When to Use Which
+#### ☑️ When to Use Which
 
-### Between Shells
+### ☑️ Between Shells
 
 >  Related Article : [Different Kind of Shells, Login Shell and Interactive Shell](./difference-between-login-shell-and-non-login-shell)
 
@@ -105,31 +110,59 @@ As UNICODE invented.
 
 
 
-### Proxy Servers
+### HTTP Servers
 
-configure it to UTF-8
+Most applications use UTF-8 as default these days.
 
-#### nginx config
+So you can confidently set default encoding to UTF-8.
+
+#### nginx
 
 ```nginx
-# /path/to/nginx.conf
-
+# /etc/nginx/nginx.conf (differs by platforms)
+# Add below lines to the root configuration file
+http {
+	...
+	charset utf-8;
+	source_charset utf-8;
+	override_charset on;
+	...
+}
 ```
 
-#### apache config
+#### apache
 
 ```apache
-# /path/to/apache.conf
-
+# /etc/httpd/conf/httpd.conf (differs by platforms) 
+# Add below line to the main configuration file
+...
+AddDefaultCharset utf-8
+...
 ```
 
-### Client Side Locale
+### ☑️ Cheking Client Machine's Encoding
 
-Don’t forget encoding attribute.
+On HTML file, don’t forget encoding attribute.
 
-Check client’s encoding when talking to client’s machine directly through streams, like reading file.
+You can also check client’s encoding when talking to client’s machine directly through streams, like reading file.
 
-### Create And Read Files
+Operating systems' encodings.
+
+- Windows until 8
+- Windows from 9
+- Mac and Unix-Like Systems
+- Android
+- IOS
+
+### ☑️ Runtime Environments
+
+- C family
+- Javascript
+- Python
+- Rust
+- Go
+
+### ☑️ Read and Write Files
 
 File itself can be encoded in various ways.
 
@@ -138,18 +171,13 @@ So check file’s encoding before taking operations.
 
 ```
 
-### Operating Systems and Runtimes
-- Windows until 8 : 
-- Windows from 9 : 
-- Mac and Unix-Like Systems : 
-- Android
-- IOS
+
 
 ---
 
 > **Reviews**
 > 
-> - last reviewed : 2021-11-24
+> - last reviewed : 2021-12-10
 > 
 > **Related Versions**
 > 
@@ -159,10 +187,9 @@ So check file’s encoding before taking operations.
 > **References**
 > 
 > * [Primary Reference (blog)][1]
-> * ASCII
-> * Code PAge
-> * EUC
-> * ANSI
+> * [ASCII](https://en.wikipedia.org/wiki/ASCII)
+> * [Code Page](https://en.wikipedia.org/wiki/Code_page) and [ANSI](https://en.wikipedia.org/wiki/ANSI_character_set)
+> * [EUC](https://en.wikipedia.org/wiki/Extended_Unix_Code)
 > * Unicode
 > * [utf-16][2] , [Endians and Byte Order Mark][3]
 > * [UTF-8]()
