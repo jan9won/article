@@ -12,6 +12,9 @@ Please follow common rules below, on every commit to this repository.
     - get the title of the article
     - use this command line function to escape it
     ```shell
+        escape () {
+            echo "$1" | tr '[:upper:]' '[:lower:]' | sed -r 's/([^a-zA-Z0-9])/-/g' | sed -e 's/--*/-/g'
+        }
     ```
         1. make all characters lower case
         2. make all non-alphanumeric characters into "-" (minus character)
