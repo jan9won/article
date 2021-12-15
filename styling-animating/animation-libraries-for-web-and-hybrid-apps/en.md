@@ -2,6 +2,10 @@
 
 ---
 
+Queue
+
+- Haiku is open sourced motion graphics editor and compatible with lottie
+
 ##  What Are The Options?
 
 > Know your use case.
