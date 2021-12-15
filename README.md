@@ -5,7 +5,7 @@ This is the single source of the truth for the article files for [neolambda.stud
 Please follow common rules below, on every commit to this repository.
 
 ## How to create a new article
-[notion link]() (you need permission)
+[notion link](https://antique-speedwell-163.notion.site/c6be263f681f4513888508b6eab84fc9?v=1ee34de4c7a0469c8106897b8a9375ab) (read-only, you need permission to edit, please request via email, jan9won@gmail.com)
 1. create notion page for the article if there isn't already
 2. edit the notion page's status to "writing"
 3. create new branch with the naming rule below
