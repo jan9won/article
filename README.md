@@ -2,7 +2,9 @@
 
 This is the single source of the truth for the article files for [neolambda.studio](https://neolambda.studio)'s blog. 
 
-Please follow common rules below, on every commit to this repository.
+You can always commit to this blog for new articles, or for reporting errors. 
+
+When commiting to this blog, please follow common rules below, on every commit to this repository.
 
 ## How to create a new article
 [notion link](https://antique-speedwell-163.notion.site/c6be263f681f4513888508b6eab84fc9?v=1ee34de4c7a0469c8106897b8a9375ab) (read-only, you need permission to edit, please request via email, jan9won@gmail.com)
