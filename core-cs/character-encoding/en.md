@@ -39,8 +39,6 @@ Made by microsoft. Each language is mapped on separate "Code Page" represented l
 
 **Limitations**
 
-**
-
 #### ANSI is Not A Fixed Standard Name
 
 What people referres to ANSI are these Code Pages in most cases.
