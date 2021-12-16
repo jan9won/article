@@ -1,10 +1,12 @@
-# Useful Shell Commands and Configurations
-
 ☑️ sign means I'm still writing
 
 {{TOC}}
 
 [TOC]
+
+
+
+
 
 ## terminal, shell and console
 

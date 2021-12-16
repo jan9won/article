@@ -1,6 +1,5 @@
 {
 	"author": "Jangwon Suh",
-	"title": "",
-	"subcategory": [],
-	"tag": []
+	"title": "Useful Shell Commands and Configurations",
+	"subcategory": ["network-and-server","auth-security","core-cs","standards"]
 }
