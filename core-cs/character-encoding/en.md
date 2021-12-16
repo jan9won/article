@@ -37,7 +37,7 @@ ASCII includes All the special characters and control characters on contemporary
 
 Made by microsoft. Each language is mapped on separate "Code Page" represented like CP292(Korean).
 
-Limitations
+**Limitations**
 
 #### ANSI is Not A Fixed Standard Name
 
