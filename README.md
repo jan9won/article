@@ -17,8 +17,8 @@ When commiting to this blog, please follow common rules below, on every commit t
 	- make new branch named with `id`
 	- make new directory named with `id` and copy template files into it
 	- populate `meta.json` template with following information
-		- `<title>` you entered
-		- your git's `username` and `email`
+	    - `<title>` you entered
+		  - your git's `username` and `email`
 4. you can create markdown files named with it's language code. i.e. `ko.md` or `de.md`. You already have `en.md` as a template 
     - language code should follow 2-character ISO standard.
     - both `.md` and `.mdx` extensions are acceptable. `.md` files will also be parsed for `react-mdx` components
@@ -51,9 +51,9 @@ When commiting to this blog, please follow common rules below, on every commit t
 > any data that can be retrieved from the git repository will be automatically populated on `create-article` and `pre-commit` git hook.
 
 1. `"author"` and `"email"` fields
-- author will be the creator of the article's file
-- authors' email and name will be found on git history. So configure your git properly before running `./create-article`
+    - author will be the creator of the article's file
+    - authors' email and name will be found on git history. So configure your git properly before running `./create-article`
 
 2. `created` and `edited` time
-- created time is the *first* time the file is merged to the `origin/main` branch
-- edited time is the *last* time the file merged to the `origin/main` branch
+    - created time is the *first* time the file is merged to the `origin/main` branch
+    - edited time is the *last* time the file merged to the `origin/main` branch
