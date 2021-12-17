@@ -4,7 +4,7 @@ printf "\n"
 
 if [[ ! "$# == 2" ]]
 then
-	printf "usage : ./create sh <category> <title>"
+	printf "usage : ./create-article <category> <title>"
 	exit 1
 fi
 
@@ -41,7 +41,7 @@ CATEGORY=$(escapeCategory "$1")
 SUBCATEGORY=$(escapeSubcategory "$1")
 TITLE=$(escapeTitle "$2")
 ID="$CATEGORY/$TITLE"
-printf "Category and Parsed Into \n \"$ID\" \n"
+printf "Category and Title Parsed Into \n \"$ID\" \n"
 
 # get user info
 EMAIL=$(git config user.email)
