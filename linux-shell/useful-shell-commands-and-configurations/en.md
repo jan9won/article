@@ -420,6 +420,10 @@ Command line arguments are the strings following your command.
 
 - Stores all arguments, individually quoted with `""`
 
+#### `$?`
+
+- find the return value of the last executed command
+
 ### Parsing Arguments
 
 #### Check if Empty
@@ -609,13 +613,34 @@ camelcase(){
 
 ### `if`
 
+#### syntax
+
+`if` and `brackets` must be spaced.
+
 ```sh
-if [[<condition>]]; 
+if [[ <condition> ]]; 
 	then 
 		<commands on true condition>
 	else 
   	<commands on false condition>
 fi
+```
+
+Double brackets `[[]]` are for `bash`.
+
+In `bash`, you have more features like expanding variables
+
+#### integer comparison operators
+
+Integer comparison more than `==` `!=`, can be achieved with flags below.
+
+```sh
+-eq # Equal
+-ne # Not equal
+-lt # Less than
+-le # Less than or equal
+-gt # Greater than
+-ge # Greater than or equal
 ```
 
 ### `for` with array
