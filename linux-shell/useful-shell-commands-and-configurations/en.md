@@ -259,6 +259,14 @@ The **symbolic writing mode rules are same** so you can learn only once.
 
 ## I/O
 
+### ☑️ printing
+
+#### `echo`
+
+#### `printf`
+
+
+
 ### standard i/o
 
 #### `stdout`
