@@ -1,0 +1,78 @@
+#!/bin/bash
+
+if [[ ! "$# == 2" ]]; then
+	echo "usage : ./create sh <category> <title>"
+	exit 1
+fi
+
+escapeTitle(){
+	echo "$1" |
+	tr '[:upper:]' '[:lower:]' |
+	sed -E 's/[^a-zA-Z0-9]/-/g' |
+	sed -E 's/--*/-/g' |
+	sed -E 's/^-//g; s/-$//g'
+}
+
+escapeCategory(){
+	echo "$1" |
+	tr '[:upper:]' '[:lower:]' |
+	sed -E "s/(--).*//g" 
+}
+
+escapeSubcategory(){
+	echo "$1" |
+	tr '[:upper:]' '[:lower:]' |
+	sed -E "s/.*(--)//g"
+}
+
+# get id
+CATEGORY=$(escapeCategory "$1")
+SUBCATEGORY=$(escapeSubcategory "$1")
+TITLE=$(escapeTitle "$2")
+ID="$CATEGORY/$TITLE"
+echo "$ID"
+
+# get user info
+EMAIL=$(git config user.email)
+NAME=$(git config user.name)
+
+# parse meta.json
+META=$(cat "./_template/meta.json" | 
+## title
+sed "s/Camel Cased Title/$2/g" |
+## name
+sed "s/Name From Git/$NAME/g" |
+## email
+sed "s/Email From Git/$EMAIL/g" |
+## subcategory
+if [[ $CATEGORY == $SUBCATEGORY  ]]
+then
+	sed "s/same-as-notion//g"
+else
+	sed "s/same-as-notion/SUBCATEGORY/g"
+fi
+)
+
+# make branch
+git checkout -b "$ID"
+# make category directory
+if [[ ! -d "./$CATEGORY" ]]
+then
+	mkdir "./$CATEGORY"
+fi
+# make article directory
+mkdir "./$CATEGORY/$TITLE"
+
+# copy template
+cp -a ./_template/. ./$ID/
+
+# re-write meta.json
+echo "$META" > "./$ID/meta.json"
+
+# open folder and editor
+cd ./$ID/
+open -a typora ./en.md
+
+# exit and open new shell on new directory
+echo "new article $ID is created with template"
+$SHELL
