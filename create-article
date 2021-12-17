@@ -54,7 +54,7 @@ fi
 )
 
 # make branch
-git checkout -b "$ID"
+git switch -c "$ID"
 # make category directory
 if [[ ! -d "./$CATEGORY" ]]
 then
