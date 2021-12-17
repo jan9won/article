@@ -6,7 +6,7 @@
 
 
 
-
+> Commands in this article is tested with `bash` v5.x.x, and `zsh` v.5.8
 
 ## terminal, shell and console
 
@@ -273,31 +273,33 @@ a default place for input to go
 
 a default place for error output to go
 
-### redirecting output
+### redirecting output to files
 
-#### `>` 
+#### `>`
 
 overwrite
 
-#### `>>` 
+#### `>>`
 
 append
 
-### file descriptor
+#### `>&1`
 
-#### `>&1`  
+Redirect **stdout** to **stdout**
 
-Redirect stdout to stdout
+#### `>&2`
 
-#### `>&2` 
-
-Redirect stdout to stderr
+Redirect **stdout** to **stderr**
 
 #### `2>&1`
 
-Redirect stderr to stdout 
+Redirect **stderr** to **stdout** 
 
-#### `zsh`'s MULTIOS option 
+#### `&>`
+
+Redirect both **stdout** and **stderr** to the file 
+
+#### `zsh`'s MULTIOS option
 
 [source](https://thoughtbot.com/blog/input-output-redirection-in-the-shell#zsh-users-take-note)
 
@@ -501,11 +503,13 @@ arr_2=("A" "B" "C")
 
 ​	common options
 
-- `-o` : get all matches, even ones in a same line
-- `-n` : line number of a match
-- `-E` : use regex
-- `-w` : 
-- `-v` : 
+- `-E, --extended-regexp` : use extended regular expression (same as egrep)
+- `-o, --only-matching` : print only the matched (non-empty) parts of a matching line
+- `-n, --line-number` : prefix each match with line number
+- `-w, --word-regexp` : only match beginning or end of a 'word' (preceded or followed by non-word characters : Letters, Digits, Uderscores) 
+- `-v, --invert-match` : works as 'not' operator
+- `-i, --ignore-case` : case insensitive match
+- `-c, --count` : print count of matching lines
 
 #### bash `[[]]` (double brackets)
 
@@ -922,3 +926,9 @@ xargs rm |**
 
 
 ------
+
+
+
+> References
+>
+> https://www.computerhope.com/unix/ugrep.htm
