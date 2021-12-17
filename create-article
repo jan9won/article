@@ -37,7 +37,7 @@ EMAIL=$(git config user.email)
 NAME=$(git config user.name)
 
 # parse meta.json
-META=$(cat "./_template/meta.json" | 
+META=$(cat "./template/meta.json" | 
 ## title
 sed "s/Camel Cased Title/$2/g" |
 ## name
@@ -64,7 +64,7 @@ fi
 mkdir "./$CATEGORY/$TITLE"
 
 # copy template
-cp -a ./_template/. ./$ID/
+cp -a ./template/. ./$ID/
 
 # re-write meta.json
 echo "$META" > "./$ID/meta.json"
