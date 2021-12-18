@@ -4,15 +4,13 @@
 
 [TOC]
 
-
-
-> Commands in this article is tested with `bash` v5.x.x, and `zsh` v.5.8
+---
 
 ## terminal, shell and console
 
 Differences of these concepts are insignificant for modern computer users, but here are short descriptions.
 
-#### shell
+### shell
 
 > (unix term) A command-line interpreter.
 
@@ -22,7 +20,7 @@ It manages foreground and background processes, command history and command line
 
 There are many kinds of shells. [See the article : Differences between login, non-login, interactive and non-interactive shell.](./differences-between-login-non-login-interactive-and-non-interactive-shell)
 
-#### terminal
+### terminal
 
 > (traditionally) A physical "text input/output device", like monitor and keyboard.
 
@@ -32,7 +30,7 @@ More historically, it was a punch card for input and printer for output.
 
 In current unix-like system, it's a wrapper program that runs a shell. It's also called `tty`. You can command `tty` on your shell to see your shell's terminal.
 
-#### console
+### console
 
 > (traditionally) A special sort of terminal, which is plugged into a dedicated serial port on a computer for a low-level commication with OS.
 
@@ -42,7 +40,7 @@ Current unix-like systems have virtual console, which is a software implementati
 
 It's the primary user interface for OS. 
 
-#### summary
+### summary
 
 ```sh
 terminal (remote or local, multiple, user interface)
@@ -52,11 +50,165 @@ terminal (remote or local, multiple, user interface)
 
 
 
+
+
+---
+
+## Shell Scripts vs Other Scripting Languages
+
+### Shell Scripts are Portable : Ubiquity and Independence
+
+**Shell scripts are very ubiquitous to all systems.** 
+
+OSs use shell scripts internally, from running daemons at startup, to running apps by clicking app icons.
+
+Popular mobile OSs like iOS and Android are also UNIX-like so they also use POSIX compatible shells internally.
+
+**Shells don't require any 3rd-party dependencies to run.** 
+
+They are are glued tightly into the operating systems.
+
+And you don't have to worry about all the system requirements and dependency updates that modern high-level scripting languages like Python comes with. 
+
+**It's more bulletproof with passing time.** 
+
+I'm very sure that you're shell script will run in every environment after 10 years. My first (nasty) `.bash_profile` script from 2014 can still run on every machine I use. 
+
+But, some python2 scripts I downloaded won't run in my python3 because of outdated dependencies. And Java8 modules I wrote in 2016 won't mingle well with Java 11 today.
+
+### Downsides
+
+**Downsides of Shell scripts**
+
+Lack of modern language features. Even very common internal objects like string don't exist. It doesn't even have 2-d arrays.
+
+You can do basically everything what your OS offers, but at the same time, without proper high level language, you'll not be able to do any practical thing.
+
+**Downsides of Modern high-level scripting languages**
+
+Languages don't support every shell commands as an internal API. So in many cases, you will have to spawn a shell as another process, and talk to it with streams. Python has `subprocess.call()` and Nodejs has `child_process.exec()` to do this. 
+
+But if you don't write a proper shell script for multiple chained commands, and try to chain commands them with multiple subprocesses, your code will get unmaintainable, very quickly.
+
+#### Downsides of Both
+
+If you want more performance, more direct/intuitive access to memory, and decent maintainability, you should be using other languages like C family or Rust. But they can be too much for simple jobs.
+
+### Use right tools for right purposes
+
+**Not overusing shell scripts**
+
+Good signals of overusing shell script is when you're struggling to find a good answer on the internet, and bombarded with thousands of different snippets solutions.
+
+So if you feel like your bash script is getting complex and unreadable, you should definately consider using other modern scripting languages like Python or Ruby.
+
+**Comibine multiple languages for each purposes** 
+
+Personally, if a (readable) shell script goes over 100 lines, I break it down into smaller scripts that has simple functionality, and execute them through high-level scripting languages.
+
+
+
+
+
+---
+
+## What are Interactive, Login Shells?
+
+> **interactive** : does it interact with terminal?
+
+> **login** : does it requires login before executing? 
+
+### interactive shell
+
+shell that directly reads and writes through a user’s terminal
+
+### non-interactive shell
+
+a shell that is not associated with a terminal, like when executing a script
+
+### login shell
+
+the first shell process of a user's shell session
+
+### non-login shell
+
+another shell process that extends of user's existing login shell session.
+
+### Use Cases
+
+- interactive, login
+  - When you first login to your interactive session.
+- non-interactive, login
+  - When shell reads shell configs
+  - When you run a command or a script over remote shell.
+- interactive, non-login
+  - When 
+- non-interactive, non-login
+  - When shell runs a script or a command, it runs another shell to do it.
+
+
+
+
+
+---
+
+## `bash`, `sh`, `zsh` and others
+
+### `#!` (shebang)
+
+You can add `#!` (shabang) to the first line of any shell script, to define path to a shell executable script should use.
+
+### `sh`
+
+`sh` is POSIX standard. 
+
+Even most of old OSs are POSIX compatible, like Windows NT by having POSIX subsystem from beginning in 1993. So if you need ultimate portability for every systems, you should use `sh`.
+
+i.e. To distribute an uncompiled, yet cross-platform CLI app, without requiring any system requirements, you'll need to use `sh`.
+
+Though on a system side it's very compatible, on a language side it's only fully compatible with `bash`. Other popular ones like `zsh` or `fish` are partly compatible. So you should always add `#!/bin/sh`.
+
+### `bash`
+
+`sh` commands can be quite cryptic when you're dealing with more complicated tasks like complexed comparison or iterations. `bash` has more features to simplify them. 
+
+`bash` is considered a standard shell for the majority of the development community. And you don't really have to worry about its compatibility for the most of time. 
+
+Here are some concerns on `bash` or any shell's compatibility.
+
+1. **Using the latest syntaxes when publishing to public**
+
+   Bash is evolving every year and adding more advanced syntaxes every update. It's just like using the lastest ECMAScript. You don't want to migrate to ECMA2021 before majority of people update their environments (in this case, the browsers). 
+
+   So if you're publishing it without any system requirement checks, you should avoid using `bash`'s new and experimental commands.
+
+   Or you can always require developers to check system requirements and install latest `bash` before running your script.
+
+2. **Containerized environment**
+
+   If you're using your script in the containerized environment, you can use whatever shell you want and just add it to your container's image. 
+
+### `zsh`
+
+`zsh` is the default shell for OSX terminal app. Syntax is similar to `bash` but there are many incompatibilities. You'll be get used to it if you're using OSX.
+
+Its binary is under `/bin/zsh`.
+
+You can always change to `bash` using `chsh -s /bin/bash` command. And update `bash` with `brew install bash`
+
+### `fish` and others
+
+There are many different shells out there with many different features. `fish` has been quite a trend for people looking for more interactive and visually intuitive shell. It's a can run on Unix-like systems.
+
+
+
+
+
 ---
 
 ## ☑️ Auth
 
-#### Why worry about many users?
+### Why worry about having many users?
 
 Back in the days, most computers were owned by organizations like universites, and many users did i/o on a single machine through terminals like puchcard and printer. So systems needed a safe and efficient user auth management system.
 
@@ -255,17 +407,25 @@ The **symbolic writing mode rules are same** so you can learn only once.
 
 
 
+
+
 ---
 
 ## I/O
 
-### ☑️ printing
+### printing
 
 #### `echo`
 
+- sends `newline` as a last character
+- it can work differently on different systems
+- no more formatting abilities that just printing
+
 #### `printf`
 
-
+- sends `EOF` as a last character, no `newline` so you should add it if it's needed
+- works same on every system (more portable)
+- allows much better formatting, it's based on C's `printf` function so usage of `%` signs are the same
 
 ### standard i/o
 
@@ -344,11 +504,13 @@ ls
 
 
 
+
+
 ------
 
 ## Files
 
-### File Stats
+### File Listing and Stats
 
 #### `du -sh` file size
 
@@ -363,6 +525,37 @@ check size for individual files or directories
 - `-l` show long stats
 - `-a` show all hidden files
 - I use `alias la='ls -a'` for shorthand
+
+### `find`
+
+`find <path> <options> '<pattern>'`
+
+- match all files recursively starting from specified directory
+
+- you can use regex for matching by `-regex` option
+
+- you can specify type of file (not extentsion) by `-type <filetype>`
+
+- ```
+  b      block (buffered) special
+  
+  c      character (unbuffered) special
+  
+  d      directory
+  
+  p      named pipe (FIFO)
+  
+  f      regular file
+       
+  l      symbolic link; this is never true if the -L option
+         or the -follow option is in effect, unless the
+         symbolic link is broken.  If you want to search for
+         symbolic links when -L is in effect, use -xtype.
+  
+  s      socket
+  
+  D      door (Solaris)
+  ```
 
 ### Reading Files
 
@@ -385,6 +578,8 @@ check size for individual files or directories
 #### `tail`
 
 - read from last line
+
+
 
 
 
@@ -472,6 +667,8 @@ done
 
 
 
+
+
 ---
 
 ## Variables
@@ -493,7 +690,6 @@ echo foo | read bar
 ### Array Assignment
 
 ```sh
-
 arr_1[0]="A"
 arr_1[1]="B"
 arr_1[2]="C"
@@ -503,107 +699,11 @@ arr_2=("A" "B" "C")
 
 ```
 
+### Split String into Array
+
+see [Split String into Array with IFS](#split-string-into-array-with-ifs)
 
 
----
-
-## ☑️ Strings
-
-### ☑️ String Matching
-
-#### ☑️ `grep <options> <string>`
-
-​	common options
-
-- `-E, --extended-regexp` : use extended regular expression (same as egrep)
-- `-o, --only-matching` : print only the matched (non-empty) parts of a matching line
-- `-n, --line-number` : prefix each match with line number
-- `-w, --word-regexp` : only match beginning or end of a 'word' (preceded or followed by non-word characters : Letters, Digits, Uderscores) 
-- `-v, --invert-match` : works as 'not' operator
-- `-i, --ignore-case` : case insensitive match
-- `-c, --count` : print count of matching lines
-
-#### bash `[[]]` (double brackets)
-
-```sh
-[[ "$string" == *"keyword"* ]]
-[[ "$string" =~ "keyword" ]]
-```
-
-#### difference between `[[]]` and `[]` 
-
-[source](https://stackoverflow.com/a/47576482/13287692)
-
-`[[]]` is bash extension, and it magically handles things like pathname expansion, word splitting, or regular expressions 
-
-`[]` is posix, and can't do what `[[]]` can do.
-
-### ☑️ String Manipulation
-
-#### ☑️ `awk`
-
-#### ☑️ `tr`
-
-#### ☑️ `cut`
-
-#### ☑️ `sed <options> <rules as string>` 
-
-https://thoughtbot.com/blog/sed-102-replace-in-place
-
--  `-r`
-
-  - -regexp-extended (know that regex rules are still different from other language's builtins)
-    - matches like `\\d` or `\\s` don't work, use `[0-9]` or `[ ]` instead
-    - `+` doesn't work, use `\*`
-
-- `-E` 
-
-- Multiple Expressions with `;` as delimiter
-
-  ```sh
-  sed -r "s/.../.../g;s/.../.../g"
-  ```
-
-- See Common Regex Rules in [This Article](useful-regex-rules)
-
-### Examples for Git Branch Naming
-
-#### Any String -> Hyphen Separated Lowercase
-
-```bash
-# 1. make all characters lowercase
-# 2. replace characters not in [a-zA-Z0-9] into "-" (hyphen)
-# 3. remove every "-" start and end of line
-#
-# [source] Animation Libraries For Web And Hybrid Apps
-# [result] animation-libraries-for-web-and-hybrid-apps
-escape(){
-	echo "$1" | 
-	tr '[:upper:]' '[:lower:]' | 
-	sed -r 's/([^a-zA-Z0-9])/-/g' |
-	sed -r 's/(^|-)*.(-|$)//g'
-}
-```
-
-#### Any Hyphen or Underscore Separated String -> Spaced Camelcase
-
-```sh
-# 1. replace "-" or "_" into space
-# 2. trim multiple spaces into single space
-# 3. replace every first character to uppercase
-#
-# [source] animation--libraries__for_web-and-hybrid-apps
-# [result] Animation Libraries For Web And Hybrid Apps
-camelcase(){
-	echo "$1" | 
-	sed 's/[-{,1}|_{,1}]/ /g' | 
-	tr -s "" | 
-	awk -F " " '{for(i=1;i<=NF;i++){$i=toupper(substr($i,1,1)) substr($i,2)}} 1' OFS=" "
-}
-
-# IFS (Internal Field Separator)
-# OFS (Output Field Separator)
-```
 
 
 
@@ -613,7 +713,7 @@ camelcase(){
 
 ### `if`
 
-#### syntax
+#### Baisc Syntax
 
 `if` and `brackets` must be spaced.
 
@@ -626,11 +726,22 @@ if [[ <condition> ]];
 fi
 ```
 
-Double brackets `[[]]` are for `bash`.
+#### Double brackets `[[]]` for `bash`.
 
-In `bash`, you have more features like expanding variables
+[source](https://stackoverflow.com/a/47576482/13287692)
 
-#### integer comparison operators
+In `bash`, you have more features like expanding variables with `[[]]` 
+
+`[]` is POSIX standard, and can't do what `[[]]` can do.
+
+If you have to worry about `bash`'s compatibility, you should go with POSIX standards. But in most containerized productions envionments, using bash will be no problem.
+
+```sh
+[[ "$string" == *"keyword"* ]]
+[[ $string =~ "keyword" ]]
+```
+
+#### Integer Comparison Operators
 
 Integer comparison more than `==` `!=`, can be achieved with flags below.
 
@@ -665,13 +776,26 @@ done
 
 ### `for` with `seq`
 
-```bash
-#!/bin/bash
+`seq` is similar to python's `range()` internal method. You can create array ranged array with it. And it can also add custom delimiter between them.
 
+```bash
 for i in ${seq -s " " 3);do
 
 	echo "$i"
 
+done
+```
+
+### `for` in bash
+
+In bash, you can use indexed iteration like other languages.
+
+```shell
+#!/bin/bash
+
+for (( i = 1 ; i <= 10 ; i++ ))
+do
+	echo ${i}
 done
 ```
 
@@ -690,9 +814,11 @@ done
 
 
 
+
+
 ------
 
-## Processes
+## Process Management
 
 ### Listing Processes
 
@@ -782,6 +908,8 @@ fg %2 # bring job number 2 to the foreground
 
 
 
+
+
 ---
 
 ## ☑️ Network Protocols
@@ -800,7 +928,7 @@ fg %2 # bring job number 2 to the foreground
 
 ------
 
-## Environments
+## System Environments
 
 ### OS Stats
 
@@ -890,15 +1018,19 @@ export LANG=en_US.UTF-8
 
 
 
+
+
 ------
 
-## Some Useful `zsh` Configs
+## Some Useful Commands
 
-### Difference Between `zsh` Config Files
+### Difference Between Many Config Files
 
-https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
+`zsh` https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
 
-### Open app aliases
+☑️ `bash`
+
+### Open app with `alias`
 
 ```bash
 # open app with aliases
@@ -906,7 +1038,7 @@ alias my_command='open -a <application or executable> <args>'
 alias code='opan -a "Visual Studio Code"'
 ```
 
-### Backup Automation
+### Backup Automation with `rsync` and `crontab`
 
 ```bash
 remote_queue=(
@@ -941,27 +1073,205 @@ sshagent() {
 }
 ```
 
-### (mac) remove `.DS_Store`
 
-As you can ignore .DS_Store with application configurations, reconsider removing it. `.DS_Store.` serves many roles for OSX like layout and icon of a directory.
 
-i.e. In git, you can add `.DS_Store` in `~/.gitignore_global`, and for `rsync` you can add  `—exclude .DS_Store` flag.
+
+
+---
+
+## ☑️ String Matching and Manipulation
+
+
+
+==***WARNING***==
+
+> As I mentioned [earlier](#when-and-when-not-to-use-shell-scripts), complex string manipulation in shell script can be very challenging and unecessary. 
+>
+> You should stop at the point when you have the ***raw data*** you want. And should only chain your output further when you need to run another command in pipe.
+>
+> If you're chaining multiple commands to just achieve things that a single javascript method like `String.prototype.includes()` can achieve, you're using a wrong tool.
+>
+> `grep` and `sed` would be enough for most cases.
+
+***==But==***
+
+> If you're maintaining a legacy code without proper documentation, you should be able to at least read what they're doing. So I wrote commands in order that I think it's frequently used.
+
+### Matching with `grep`
+
+`grep <options> <string>`
+
+​	common options
+
+- `-E, --extended-regexp` : use extended regular expression (same as egrep)
+- `-o, --only-matching` : print only the matched (non-empty) parts of a matching line
+- `-n, --line-number` : prefix each match with line number
+- `-w, --word-regexp` : only match beginning or end of a 'word' (preceded or followed by non-word characters : Letters, Digits, Uderscores) 
+- `-v, --invert-match` : works as 'not' operator
+- `-i, --ignore-case` : case insensitive match
+- `-c, --count` : print count of matching lines
+
+### ☑️ Replacing with `sed`
+
+` sed <options> <rules as string>`
+
+https://thoughtbot.com/blog/sed-102-replace-in-place
+
+-  `-r`
+
+   - -regexp-extended (know that regex rules are still different from other language's builtins)
+     - matches like `\\d` or `\\s` don't work, use `[0-9]` or `[ ]` instead
+     - `+` doesn't work, use `\*`
+
+- `-E` 
+
+- Multiple Expressions with `;` as delimiter
+
+  ```sh
+  sed -r "s/.../.../g;s/.../.../g"
+  ```
+
+- See Common Regex Rules in [This Article](useful-regex-rules)
+
+### ☑️ `tr`
+
+### ☑️ `cut`
+
+### Splitting with `IFS`
+
+`IFS` is "internal field separator". 
+
+Its defaulted to **space | tab | newline**. 
+
+When you assign or  string, it will internally split them with IFS value.
+
+in `read` command, `-r` option is for , and `-a` option makes it into an array.
+
+```shell
+mystring="a b c,d e"
+read -ra myarray <<< $mystring"
+
+for substring in $myarray;
+do
+	echo $substring
+done
+
+# result
+
+# a
+# b
+# c,d
+# e
+```
+
+When you set it to different character, strings will be splitted with it. 
+
+You can also set multiple IFS at once.
+
+```shell
+IFS=","
+mystring="a b c,d e"
+for substring in $mystring;
+do
+	echo $substring
+done
+
+# result
+
+# a b c
+# d e
+```
+
+### ☑️ `awk` for More
+
+`awk` is a whole other scripting language that you can use inside `bash` command inline. Sytaxes are quite mouthful to memorise, so I'll take some necessary operations.
+
+```
+awk <options> '<selection> <_criteria> <{action}>' input-file > output-file
+```
+
+`FS`,` OFS`
+
+`RS`
+
+`ORS`
+
+`NR`
+
+`NF`
+
+`FILENAME`
+
+`FNR`
+
+### Example Usecase
+
+Bash string manipulation is useful when you're trying to parse CLI inputs from user, and then pipe it into another command
+
+i.e. You can enforce git branch naming rules by putting this function in git's `update` hook script.
 
 ```bash
-# [1] find .DS_Store recursively
-# [2] wrap string inside quotes (in case of whitespace in path name)
-# [3] delete each path 
-find . -name ".DS_Store" |
-sed "s/^/'/;s/$/'/" | 
-xargs rm |** 
+escape(){
+	printf "$1\n" |
+	tr '[:upper:]' '[:lower:]' |
+	sed -E 's/[^a-zA-Z0-9\/]/-/g' |
+    sed -E 's/-*\//\//g; s/\/-*/\//g' |
+	sed -E 's/--*/-/g' |
+	sed -E 's/^-//g; s/-$//g'
+}
 ```
+
+What it does is, to make all characters lowercase, and separate each word with hyphen.
+
+You can always chain sed commands with semicolon `;` line `6`, but piping has better readability.
+
+1. `printf "$1\n"` print the first argument of the function
+2. `tr '[:upper:]' '[:lower:]' ` make whole string uppercase
+3. `sed -E 's/[^a-zA-Z0-9\/]/-/g'` replace all non-alphanumeric and non-slash (`/`) characters into minus sign (`-`).
+4. `sed -E 's/-*\//\//g; s/\/-*/\//g' ` remove `-` around `/`
+5. `sed -E 's/--*/-/g'` replace two or more `-` into a single one.
+6. `sed -E 's/^-//g; s/-$//g'` if there's a preceding or trailing `-`, remove it.
+
+So example result will be like this.
+
+```shell
+escape 'feature / article "Useful shell Commands" / Add the `sed` section'
+
+# will print,
+# feature/article-useful-shell-commands/add-the-sed-section
+```
+
+And you can pipe this new string to procede git branch update.
+
+```shell
+escape 'old string' | 
+# <do something wit git command>
+```
+
+
 
 
 
 ------
 
-
-
-> References
+> **Reviews**
 >
-> https://www.computerhope.com/unix/ugrep.htm
+> last reviewed : 2021-12-21
+>
+> reviewed by : Jangwon Suh
+
+> **Related Versions**
+>
+> - bash 5.x.x
+> - zsh 5.x.x
+
+> **References**
+>
+> (There's so many references from StackOverflow, so I omitted them. Thank you for all the StackOverflow community)
+>
+> - [grep](https://www.gnu.org/software/grep/manual/grep.html)
+>
+> - [grep summary](https://www.computerhope.com/unix/ugrep.htm)
+>
+> - [bash](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html)
+> - [login and interactive shells](https://unix.stackexchange.com/questions/38175/difference-between-login-shell-and-non-login-shell)
