@@ -1,8 +1,16 @@
-This is the single source of the truth for the article files for [neolambda.studio](https://neolambda.studio)'s blog. 
+> This repository is the single source of truth for the articles in [neolambda studio's blog](https://neolambda.studio). 
+> You can freely commit to this blog for new articles, or report errors with an issue.
+> When commiting to this blog, please follow common rules below.
 
-You can always commit to this blog for new articles, or for reporting errors. 
+# Instructions on Write/Edit/Delete an Article
 
-When commiting to this blog, please follow common rules below, on every commit to this repository.
+- [How to create a new article](#how-to-create-a-new-article)
+- [Writing Article](#writing-article)
+- [How to edit an existing article](#how-to-edit-an-existing-article)
+- [How to delete an existing article](#how-to-delete-an-existing-article)
+- [more about meta.json](#more-about-metajson)
+
+
 
 ## How to create a new article
 [notion link](https://antique-speedwell-163.notion.site/c6be263f681f4513888508b6eab84fc9?v=1ee34de4c7a0469c8106897b8a9375ab) (read-only, you need permission to edit, please request via email, jan9won@gmail.com)
