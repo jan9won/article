@@ -1,24 +1,64 @@
+
 > This repository is the single source of truth for the articles in [neolambda studio's blog](https://neolambda.studio). 
+> 
 > You can freely commit to this blog for new articles, or report errors with an issue.
-> When commiting to this blog, please follow common rules below.
+> 
+> When commiting, please follow common rules below.
 
-# Instructions on Write/Edit/Delete an Article
+<br/>
 
-- [How to create a new article](#how-to-create-a-new-article)
-- [Writing Article](#writing-article)
-- [How to edit an existing article](#how-to-edit-an-existing-article)
-- [How to delete an existing article](#how-to-delete-an-existing-article)
-- [more about meta.json](#more-about-metajson)
+Table of Contents
 
+- [Structure of this Repository](#structure-of-this-repository)
+- [Instructions on CRUD](#instructions-on-crud)
+	- [Create](#create)
+	- [Write](#write)
+	- [Update](#update)
+	- [Delete](#delete)
+- [More About `meta.json`](#more-about-metajson)
 
+<br/>
 
-## How to create a new article
-[notion link](https://antique-speedwell-163.notion.site/c6be263f681f4513888508b6eab84fc9?v=1ee34de4c7a0469c8106897b8a9375ab) (read-only, you need permission to edit, please request via email, jan9won@gmail.com)
-1. create notion page for the article if there isn't already
-2. edit the notion page's status to "writing"
-3. create new branch with the `./create-article` script
+# Structure of this Repository
+
+```
+this repository
+│	create-article.sh
+│	create-branch.sh
+│	create-id.sh
+│
+└───template
+│	│   en.md
+│	│   meta.json
+│	│   thumb.jpg
+│	│   
+│	└───images
+│	│
+│	└───<image files>
+│
+└───<main category names>
+	│
+	└───<article names>
+		│   <language codes>.md
+		│   meta.json
+		│   thumb.jpg
+		│
+		└───images
+		│
+		└───<image files>
+	    
+```
+
+---
+
+# Instructions on CRUD
+
+## Create
+1. edit the notion page's status to "writing"
+2. create new branch with the `./create-article.sh` script
+
 	```shell
-	./create-article <category name> <title>
+	./create-article.sh <category name> <title>
 	```
 	this script does 4 things
 	- escape and concat your `<category name>` and `<title>` to make `id`
@@ -27,11 +67,12 @@
 	- populate `meta.json` template with following information
 	    - `<title>` you entered
 		  - your git's `username` and `email`
-4. you can create markdown files named with it's language code. i.e. `ko.md` or `de.md`. You already have `en.md` as a template 
-    - language code should follow 2-character ISO standard.
-    - both `.md` and `.mdx` extensions are acceptable. `.md` files will also be parsed for `react-mdx` components
+3. you can create markdown files named with it's language code. 
+	- i.e. `ko.md` or `de.md`, You already have `en.md` as a template)
+	- language code should follow 2-character ISO standard
+	- both `.md` and `.mdx` extensions are acceptable. `.md` files will also be parsed for `react-mdx` components
 
-## Writing Article
+## Write
 1. When you have medias embedded in the article, put media files in the article's directory and referece it as a relative directory. (i.e. `./images/myimage.jpg`)
 2. Edit `thumb.jpg`, which will be your article's thumbnail and banner.
 3. If you have subcategories, you can add `subcategory` to meta.json.
@@ -39,29 +80,31 @@
 5. when finished, merge the branch (not rebase) to the main and pull request to Github origin. 
     - please squash your backup purposed commits
     - every merge-pull-request on the origin/main will trigger webhoook, which directly update blog's articles. so be sure about your pull requrests.
-6. go to notion and make the status of the article "published"
-7. editing and deleting articles should follow other directions below
 
-## How to edit an existing article
-1. go to the notion and edit article's status to "edit"
-2. if there's a related github issue, go to the issue and change status and comment
-3. create new branch with `id` from `./create-article` above. If you don't know it, you can run `./make-id` to see it.
-4. when finished, merge to main and pull request to Github origin
-5. go to the notion and edit status to "published" close the issue if it exisists
+## Update
+1. if there's a related github issue, go to the issue and change status and comment
+2. create new branch with `id`. If you don't know it, 
+	- you can run `./create-id.sh` to print it on shell
+	- or `./create-branch.sh` to create branch automatically
+4. when finished, squash your backup commits and make pull request to Github origin
+5. close the related issue if it exisists
 
-## How to delete an existing article
-1. delete article's whole folder directly on the `main` branch.
-2. if there's branch, delete it either. 
-3. pull request to the Github origin
-4. go to the notion and edit status to "deleted" and write the reason of deletion on the page
+## Delete
+1. delete article's whole folder directly on the `main` branch
+2. if there's a branch, delete it either
+3. write commit message with the reason of deletion
+4. make a pull request to the Github origin
 
-## more about meta.json
-> any data that can be retrieved from the git repository will be automatically populated on `create-article` and `pre-commit` git hook.
+# more about meta.json
+> any data that can be retrieved from the git repository will be automatically inserted to `meta.json`.
+> 
+> this happens while running `create-article.sh` and `pre-commit` git hook.
 
 1. `"author"` and `"email"` fields
-    - author will be the creator of the article's file
-    - authors' email and name will be found on git history. So configure your git properly before running `./create-article`
+    - `"author"` is the creator of the article
+    - author's `"email"` and `"name"` will be located with git history
+    - please configure your git properly before commiting
 
-2. `created` and `edited` time
-    - created time is the *first* time the file is merged to the `origin/main` branch
-    - edited time is the *last* time the file merged to the `origin/main` branch
+2. `"created"` and `"edited"` fields
+    - `"created"` is the timestamp of the *first* time article is merged to the `origin/main` branch
+    - `"edited"` time is the timestamp of the *last* time article merged to the `origin/main` branch
