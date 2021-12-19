@@ -1,10 +1,18 @@
-☑️ sign means I'm still writing
-
 {{TOC}}
 
 [TOC]
 
----
+☑️ sign means I'm still working on.
+
+> I'm mainly use shell command on building React/React Native apps and its ci/cd pipelines, with a few backend stacks.
+
+> So I'll try not to be verbouse and to write mainly important shell commands for frontend + ci/cd usecases.
+
+
+
+
+
+# Introduction
 
 ## terminal, shell and console
 
@@ -14,33 +22,33 @@ Differences of these concepts are insignificant for modern computer users, but h
 
 > (unix term) A command-line interpreter.
 
-A user interface which actually processes your commands and returns output. The most common shell in modern linux system is `bash`. 
+- A user interface which actually processes your commands and returns output. The most common shell in modern linux system is `bash`. 
 
-It manages foreground and background processes, command history and command line editing.
+- It manages foreground and background processes, command history and command line editing.
 
-There are many kinds of shells. [See the article : Differences between login, non-login, interactive and non-interactive shell.](./differences-between-login-non-login-interactive-and-non-interactive-shell)
+- There are many kinds of shells. [See the article : Differences between login, non-login, interactive and non-interactive shell.](./differences-between-login-non-login-interactive-and-non-interactive-shell)
 
 ### terminal
 
 > (traditionally) A physical "text input/output device", like monitor and keyboard.
 
-Back in the days, it was a physical device including monitor and keyboard.
+- Back in the days, it was a physical device including monitor and keyboard.
 
-More historically, it was a punch card for input and printer for output.
+- More historically, it was a punch card for input and printer for output.
 
-In current unix-like system, it's a wrapper program that runs a shell. It's also called `tty`. You can command `tty` on your shell to see your shell's terminal.
+- In current unix-like system, it's a wrapper program that runs a shell. It's also called `tty`. You can command `tty` on your shell to see your shell's terminal.
 
 ### console
 
 > (traditionally) A special sort of terminal, which is plugged into a dedicated serial port on a computer for a low-level commication with OS.
 
-Originally, console meant a terminal device that is physically plugged into a computer. 
+- Originally, console meant a terminal device that is physically plugged into a computer. 
 
-Current unix-like systems have virtual console, which is a software implementation of traditional terminal.
+- Current unix-like systems have virtual console, which is a software implementation of traditional terminal.
 
-It's the primary user interface for OS. 
+- It's the primary user interface for OS. 
 
-### summary
+### pipeline summary
 
 ```sh
 terminal (remote or local, multiple, user interface)
@@ -58,53 +66,53 @@ terminal (remote or local, multiple, user interface)
 
 ### Shell Scripts are Portable : Ubiquity and Independence
 
-**Shell scripts are very ubiquitous to all systems.** 
+#### Shell scripts are very ubiquitous to all systems. 
 
-OSs use shell scripts internally, from running daemons at startup, to running apps by clicking app icons.
+- OSs use shell scripts internally, from running daemons at startup, to running apps by clicking app icons.
 
-Popular mobile OSs like iOS and Android are also UNIX-like so they also use POSIX compatible shells internally.
+- Popular mobile OSs like iOS and Android are also UNIX-like so they also use POSIX compatible shells internally.
 
-**Shells don't require any 3rd-party dependencies to run.** 
+#### Shells don't require any 3rd-party dependencies to run. 
 
-They are are glued tightly into the operating systems.
+- They are are glued tightly into the operating systems.
 
-And you don't have to worry about all the system requirements and dependency updates that modern high-level scripting languages like Python comes with. 
+- And you don't have to worry about all the system requirements and dependency updates that modern high-level scripting languages like Python comes with. 
 
-**It's more bulletproof with passing time.** 
+#### It's more bulletproof with passing time. 
 
-I'm very sure that you're shell script will run in every environment after 10 years. My first (nasty) `.bash_profile` script from 2014 can still run on every machine I use. 
+- I'm very sure that you're shell script will run in every environment after 10 years. My first (nasty) `.bash_profile` script from 2014 can still run on every machine I use. 
 
-But, some python2 scripts I downloaded won't run in my python3 because of outdated dependencies. And Java8 modules I wrote in 2016 won't mingle well with Java 11 today.
+- But, some python2 scripts I downloaded won't run in my python3 because of outdated dependencies. And Java8 modules I wrote in 2016 won't mingle well with Java 11 today.
 
 ### Downsides
 
-**Downsides of Shell scripts**
+#### Downsides of Shell scripts
 
-Lack of modern language features. Even very common internal objects like string don't exist. It doesn't even have 2-d arrays.
+- Lack of modern language features. Even very common internal objects like string don't exist. It doesn't even have 2-d arrays.
 
-You can do basically everything what your OS offers, but at the same time, without proper high level language, you'll not be able to do any practical thing.
+- You can do basically everything what your OS offers, but at the same time, without proper high level language, you'll not be able to do any practical thing.
 
-**Downsides of Modern high-level scripting languages**
+#### Downsides of NOT Using scripting languages
 
-Languages don't support every shell commands as an internal API. So in many cases, you will have to spawn a shell as another process, and talk to it with streams. Python has `subprocess.call()` and Nodejs has `child_process.exec()` to do this. 
+- Languages don't support every shell commands as an internal API. So in many cases, you will have to spawn a shell as another process, and talk to it with streams. Python has `subprocess.call()` and Nodejs has `child_process.exec()` to do this. 
 
-But if you don't write a proper shell script for multiple chained commands, and try to chain commands them with multiple subprocesses, your code will get unmaintainable, very quickly.
+- But if you don't write a proper shell script for multiple chained commands, and try to chain commands them with multiple subprocesses, your code will get unmaintainable, very quickly.
 
 #### Downsides of Both
 
-If you want more performance, more direct/intuitive access to memory, and decent maintainability, you should be using other languages like C family or Rust. But they can be too much for simple jobs.
+- If you want more performance, more direct/intuitive access to memory, and decent maintainability, you should be using other languages like C family or Rust. But they can be too much for simple jobs.
 
 ### Use right tools for right purposes
 
-**Not overusing shell scripts**
+#### Not overusing shell scripts
 
-Good signals of overusing shell script is when you're struggling to find a good answer on the internet, and bombarded with thousands of different snippets solutions.
+- Good signals of overusing shell script is when you're struggling to find a good answer on the internet, and bombarded with thousands of different snippets solutions.
 
-So if you feel like your bash script is getting complex and unreadable, you should definately consider using other modern scripting languages like Python or Ruby.
+- So if you feel like your bash script is getting complex and unreadable, you should definately consider using other modern scripting languages like Python or Ruby.
 
-**Comibine multiple languages for each purposes** 
+#### Comibining languages
 
-Personally, if a (readable) shell script goes over 100 lines, I break it down into smaller scripts that has simple functionality, and execute them through high-level scripting languages.
+- Personally, if a (readable) shell script goes over 100 lines, I break it down into smaller scripts that has simple functionality, and execute them through high-level scripting languages.
 
 
 
@@ -114,37 +122,48 @@ Personally, if a (readable) shell script goes over 100 lines, I break it down in
 
 ## What are Interactive, Login Shells?
 
-> **interactive** : does it interact with terminal?
+### TL;DR
 
-> **login** : does it requires login before executing? 
+- **interactive** : does it interact with the terminal?
 
-### interactive shell
+- **login** : does it require login for execution? 
 
-shell that directly reads and writes through a user’s terminal
+### Each Shell
 
-### non-interactive shell
+#### interactive shell
 
-a shell that is not associated with a terminal, like when executing a script
+- shell that directly reads and writes through a user’s terminal
 
-### login shell
+#### non-interactive shell
 
-the first shell process of a user's shell session
+- a shell that is not associated with a terminal, like when executing a script
 
-### non-login shell
+#### login shell
 
-another shell process that extends of user's existing login shell session.
+- the first shell process of a user's shell session
+
+#### non-login shell
+
+- another shell process that extends of user's existing login shell session.
 
 ### Use Cases
 
-- interactive, login
-  - When you first login to your interactive session.
-- non-interactive, login
-  - When shell reads shell configs
-  - When you run a command or a script over remote shell.
-- interactive, non-login
-  - When 
-- non-interactive, non-login
-  - When shell runs a script or a command, it runs another shell to do it.
+#### interactive, login
+
+- When you first login to your interactive session.
+
+#### non-interactive, login
+
+- When shell reads shell configs
+- When you run a command or a script over remote shell.
+
+#### interactive, non-login
+
+- When 
+
+#### non-interactive, non-login
+
+- When shell runs a script or a command, it runs another shell to do it.
 
 
 
@@ -156,49 +175,65 @@ another shell process that extends of user's existing login shell session.
 
 ### `#!` (shebang)
 
-You can add `#!` (shabang) to the first line of any shell script, to define path to a shell executable script should use.
+- You can add `#!` (shabang) to the first line of any shell script, to define path to a shell executable script should use.
 
 ### `sh`
 
-`sh` is POSIX standard. 
-
-Even most of old OSs are POSIX compatible, like Windows NT by having POSIX subsystem from beginning in 1993. So if you need ultimate portability for every systems, you should use `sh`.
-
-i.e. To distribute an uncompiled, yet cross-platform CLI app, without requiring any system requirements, you'll need to use `sh`.
-
-Though on a system side it's very compatible, on a language side it's only fully compatible with `bash`. Other popular ones like `zsh` or `fish` are partly compatible. So you should always add `#!/bin/sh`.
+- `sh` is POSIX standard. 
+- Even most of old OSs are POSIX compatible, like Windows NT by having POSIX subsystem from beginning in 1993. So if you need ultimate portability for every legacy systems, you should use POSIX standard.
+- Syntax is fully compatible with `bash`. But other popular ones like `zsh` or `fish` are partly compatible. 
 
 ### `bash`
 
-`sh` commands can be quite cryptic when you're dealing with more complicated tasks like complexed comparison or iterations. `bash` has more features to simplify them. 
+- `sh` commands can be quite cryptic when you're dealing with more complicated tasks like complexed comparison or iterations. `bash` has more features to simplify them. 
 
-`bash` is considered a standard shell for the majority of the development community. And you don't really have to worry about its compatibility for the most of time. 
+- `bash` is considered a standard shell for the majority of the development community. And you don't really have to worry about its compatibility for the most of time. 
 
-Here are some concerns on `bash` or any shell's compatibility.
+- Here are some concerns on `bash` or any shell's compatibility.
 
-1. **Using the latest syntaxes when publishing to public**
+  1. **Using the latest syntaxes when publishing to public**
 
-   Bash is evolving every year and adding more advanced syntaxes every update. It's just like using the lastest ECMAScript. You don't want to migrate to ECMA2021 before majority of people update their environments (in this case, the browsers). 
+     - Bash is evolving every year and adding more advanced syntaxes every update. It's just like using the lastest ECMAScript. You don't want to migrate to ECMA2021 before majority of people update their environments (in this case, the browsers). 
 
-   So if you're publishing it without any system requirement checks, you should avoid using `bash`'s new and experimental commands.
+     - So if you're publishing it without any system requirement checks, you should avoid using `bash`'s new and experimental commands.
 
-   Or you can always require developers to check system requirements and install latest `bash` before running your script.
+     - Or you can always require developers to check system requirements and install latest `bash` before running your script.
 
-2. **Containerized environment**
-
-   If you're using your script in the containerized environment, you can use whatever shell you want and just add it to your container's image. 
+  2. **Containerized environment**
+     - If you're using your script in the containerized environment, you can use whatever shell you want and just add it to your container's image. 
 
 ### `zsh`
 
-`zsh` is the default shell for OSX terminal app. Syntax is similar to `bash` but there are many incompatibilities. You'll be get used to it if you're using OSX.
-
-Its binary is under `/bin/zsh`.
-
-You can always change to `bash` using `chsh -s /bin/bash` command. And update `bash` with `brew install bash`
+- `zsh` is the default shell for OSX terminal app. Syntax is similar to `bash` but there are many incompatibilities. You'll be get used to it if you're using OSX.
 
 ### `fish` and others
 
-There are many different shells out there with many different features. `fish` has been quite a trend for people looking for more interactive and visually intuitive shell. It's a can run on Unix-like systems.
+- There are many different shells out there with many different features. `fish` has been quite a trend for people looking for more interactive and visually intuitive shell. It's a can run on Unix-like systems.
+
+
+
+## Difference Between Many Config Files
+
+- `bash` 
+  - `~/.bash_profile` is for login shells
+    - `~/.bash_login` will be read it if `~/.bash_profile ` doesn't exist
+    - `~/.profile` is for bourne shells, and `bash` will be read it if `~/.bash_profile ` and `~/.bash_login` don't exist
+  - `~/.bashrc` is for interactive non-login shells
+
+- `zsh` 
+  - [reference](https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout)
+
+## Some Stats and Configs
+
+### `cat /etc/shells`
+
+- print your available shells
+
+### `chsh [user]`
+
+- change shell for user
+- it will require input for the shell paths you can get with `cat /etc/shells` above
+- or you can run `chsh -s /bin/<shell binary>` command
 
 
 
@@ -206,36 +241,37 @@ There are many different shells out there with many different features. `fish` h
 
 ---
 
-## ☑️ Auth
+# Auth & Permission
 
-### Why worry about having many users?
+## Why worry about having many users?
 
-Back in the days, most computers were owned by organizations like universites, and many users did i/o on a single machine through terminals like puchcard and printer. So systems needed a safe and efficient user auth management system.
+- Back in the days, most computers were owned by organizations like universites, and many users did i/o on a single machine through terminals like puchcard and printer. 
+- So systems needed to authentical users and give permission to the file on the same disk.
 
-We can also have many users on one machine today. Like desktops used by many family members, and servers maintained by many admins.
+- We can also have many users on one machine today. i.e. desktops can be used by multiple family members, and servers can be maintained by many admins.
 
-### ☑️ Authentication
+## Authentication
 
-#### ☑️ ssh
+### ☑️ ssh
 
-ssh key generation (local)
-
-```sh
-
-```
-
-ssh key allowance (remote)
+#### ssh key pair generation (local)
 
 ```sh
 
 ```
 
-.ssh/config file
+#### ssh public key register (remote)
+
+```sh
+
+```
+
+#### .ssh/config file
 
 ```sj
 ```
 
-ssh daemon configuration
+#### ssh daemon configuration
 
 ```sh
 # mac
@@ -248,7 +284,7 @@ port
 password authentication false
 ```
 
-ssh daemon restart after configuration
+#### restart running ssh daemon after configuration
 
 ```bash
 # mac
@@ -259,15 +295,30 @@ sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
 
 ```
 
-#### ☑️ firewall
+#### Register SSH Agent On Shell Login
+
+```bash
+sshagent() {
+	if [ -z "$SSH_AUTH_SOCK" ] then;
+		eval "$(ssh-agent -s)"
+		eval "$(ssh-add ~/.ssh/mbp13)"
+	fi
+}
+```
+
+
+
+## Security
+
+### ☑️ firewall
 
 - 
 
-#### ☑️ fail2ban
+### ☑️ fail2ban
 
 - ban authentication attempt of the IP address that failed too many times
 
-#### `last`
+### `last`
 
 - This command prints shell login records on current console.
 - Personally, I pretty-print `last` outputs like this, every shell login to check any unused shells alive on the machine. 
@@ -278,30 +329,30 @@ lastLogin=$(last | grep -wv 'still' | head -n 3 | sed -E 's/\([0-9]*\:[0-9]*\)//
 stillLogin=$(last | grep 'still' | sed -E 's/\([0-9]*\:[0-9]*\)//g; s/ttys[0-9]*//g; s/ - / /g; s/ logged in//g; s/  */ /g; s/^/██ /' )
 ```
 
-### Permission
+## Permission
 
-#### Permission Commands
+### Edit Permission
 
-##### `chmod <permission> <file>`
+#### `chmod <permission> <file>`
 
 - Change file access permissions
 
-##### `chown <owner[:group]> <file>`
+#### `chown <owner[:group]> <file>`
 
 - Change ownership of the file
 
-##### `chgrp <group> <file>`
+#### `chgrp <group> <file>`
 
 - Change user group of the file
 
-##### `umask <permission>`
+#### `umask <permission>`
 
 - Configure file access for all the files to be created afterwards
 - without argument, it print current configuration
 
-#### Show Permission Infos
+### Get Permission Info
 
-##### `ls -l`
+#### `ls -l`
 
 - print long list of stats
 
@@ -318,9 +369,9 @@ i.e. in Mac OSX  `drwxr-xr-x@ 20 jangwonsuh staff  640 Dec 15 10:44 testing`
 - you can `ls -l -@` to see extended attributes
 - those attributes are key value pairs named like `com.apple.FinderInfo` (reverse DNS naming)
 
-#### `chmod` File Permission Codes
+###  `chmod` Permission Codes
 
-##### Write with Symbolic Mode
+#### Write with Symbolic Mode
 
 ​	parties
 
@@ -349,7 +400,7 @@ chmod u-x <file> # to user, remove permission, to execute
 chmod g = rx <file> # to group, assign permission, to read/execute
 ```
 
-##### Write with Absolute Mode
+#### Write with Absolute Mode
 
 `<Octal><Octal><Octal>` format is used and each Octal Represents.
 
@@ -368,20 +419,18 @@ Each octal characters are assigned to following permissions
 6. `rw-`
 7. `rwx`
 
-##### Frequently Used File Permissions
+#### Frequently Used File Permissions
 
 - `700` `rwx------` : All permissions to owner, no permission to others
 - `755` `rwxr-xr-x` : All permissions to owner, read and execute for others
 
-#### `umask` Permission Codes
+### `umask` Permission Codes
 
-Umask's octal permission codes are different from others.
+- Umask's octal permission codes are different from others.
+- `umask` can configure directory level permissions, so it has different meaning.
+- The **symbolic writing mode rules are same** so you can use it here.
 
-Also, `umask` can configure directory level permissions, and it has different meaning.
-
-The **symbolic writing mode rules are same** so you can learn only once.
-
-##### `umask` File / Directory Permissions
+#### `umask` File / Directory Permissions
 
 0. `rw-` / `rwx`
 1. `rw-` / `rw-` 
@@ -392,7 +441,7 @@ The **symbolic writing mode rules are same** so you can learn only once.
 6. `--x` / `--x`
 7. `---` / `---`
 
-##### Frequently Used `umask` Permissions
+#### Frequently Used `umask` Permissions
 
 - The default permission for user is `022`
 - You'll see four digits (like `0022`) if you are root.
@@ -411,63 +460,72 @@ The **symbolic writing mode rules are same** so you can learn only once.
 
 ---
 
-## I/O
+# Files & I/O
 
-### printing
+## basic printing
 
-#### `echo`
+### `echo`
 
 - sends `newline` as a last character
 - it can work differently on different systems
 - no more formatting abilities that just printing
 
-#### `printf`
+### `printf`
 
 - sends `EOF` as a last character, no `newline` so you should add it if it's needed
 - works same on every system (more portable)
 - allows much better formatting, it's based on C's `printf` function so usage of `%` signs are the same
 
-### standard i/o
+### `wc`
 
-#### `stdout`
+- "word count" shows different counts of file's content
+- options
+  - `-c` bytes
+  - `-m` characters
+  - `-w` words
+  - `-l` lines
+
+## standard i/o
+
+### `stdout`
 
 a default place for output to go
 
-#### `stdin`
+### `stdin`
 
 a default place for input to go
 
-#### `stderr`
+### `stderr`
 
 a default place for error output to go
 
-### redirecting output to files
+## redirecting output to files
 
-#### `>`
+### `>`
 
 overwrite
 
-#### `>>`
+### `>>`
 
 append
 
-#### `>&1`
+### `>&1`
 
 Redirect **stdout** to **stdout**
 
-#### `>&2`
+### `>&2`
 
 Redirect **stdout** to **stderr**
 
-#### `2>&1`
+### `2>&1`
 
 Redirect **stderr** to **stdout** 
 
-#### `&>`
+### `&>`
 
 Redirect both **stdout** and **stderr** to the file 
 
-#### `zsh`'s MULTIOS option
+### careful of `zsh`'s MULTIOS option
 
 [source](https://thoughtbot.com/blog/input-output-redirection-in-the-shell#zsh-users-take-note)
 
@@ -483,13 +541,13 @@ hello there
 hi there
 ```
 
-### piping
+## piping
 
-#### `|` (pipeline operator)
+### `|` (pipeline operator)
 
 connect the standard output of one command to the standard input of another
 
-#### `xargs`
+### `xargs`
 
 execute command for each arguments passed through pipe
 
@@ -502,17 +560,9 @@ ls
 # result is, file4 file5
 ```
 
+## File Listing and Stats
 
-
-
-
-------
-
-## Files
-
-### File Listing and Stats
-
-#### `du -sh` file size
+### `du -sh` file size
 
 check size for individual files or directories
 
@@ -520,11 +570,24 @@ check size for individual files or directories
 - `-h` is human-readable
 - if <?path> is empty it displays current directory
 
-#### `ls`
+### `ls`
 
 - `-l` show long stats
 - `-a` show all hidden files
 - I use `alias la='ls -a'` for shorthand
+
+### `lsof`
+
+- find all open files, and stat about processes using that file
+- `+D [path_to_dir]` will stat only inside designated directory
+
+### `df -h <?path>`
+
+check size of path, directory will be added recursively
+
+- `-h` is human-readable
+- `-H` is for 1000 instead of 1024
+- if <?path> is empty it displays whole accessible disks
 
 ### `find`
 
@@ -557,27 +620,46 @@ check size for individual files or directories
   D      door (Solaris)
   ```
 
-### Reading Files
+## Reading Files
 
-#### `cat`
+### `cat`
 
 - concat multiple files
 
-#### `more`
+### `more`
 
 - interactive reader, only go forward
 
-#### `less`
+### `less`
 
 - interactive reader, may other features
 
-#### `top`
+### `top`
 
 - read from first line
 
-#### `tail`
+### `tail`
 
 - read from last line
+
+
+
+## Clipboards
+
+### copy and paste with clipboard
+
+- `xclip -selection clipboard` and `xclip -selection clipboard -o` 
+- `pbcopy` and `pbpaste`
+
+### copy from remote shell
+
+- remote shell will not copy to your local machine's clipboard
+- there are some options to do this, but I recommend number 3 for daily use
+  1. use `⌘ s` to save your current terminal window's content
+     - it'll only copy visible lines in terminal window
+  2. copy contents to temporary file and send the file to your local machine 
+     - it'll be too much work for frequent use
+  3. use `cat`,`head`,`tail` to print the file content on terminal and use mouse to drag over content and use `⌘ c` to copy.
 
 
 
@@ -585,15 +667,17 @@ check size for individual files or directories
 
 ---
 
-## Arguments
+# Parameters & Variables
 
 Command line arguments are the strings following your command.
 
 `command <...arguments>`
 
-### Reading Arguments
+## Parameters
 
-#### `$0` 
+### Positional Parameters
+
+#### `$0`
 
 - name of the currently running process
 - if you write `echo $0` in ./yourscript.sh and run with shell, you'll get `./yourscript.sh`
@@ -603,7 +687,7 @@ Command line arguments are the strings following your command.
 
 - The arguments passed to the script will be variables in order
 
-#### `$#` 
+####  `$#`
 
 - The number of arguments supplied to the script
 
@@ -615,22 +699,44 @@ Command line arguments are the strings following your command.
 
 - Stores all arguments, individually quoted with `""`
 
-#### `$?`
+### Manipulating Positional Parameters
 
-- find the return value of the last executed command
+#### `set`
 
-### Parsing Arguments
+- does many things 
+  - change the values of shell options
+  - set the positional parameters
+  - display the names and values of shell variables
 
-#### Check if Empty
+#### `--`
 
-```sh
-if [[ $# -eq 0 ]]; then
-    echo "No arguments provided"
-    exit 1
-fi
+- signify the end of command options
+- i.e. you can grep literal `-v` which will considered an option without `--`
+
+```bash
+grep -- -v file
 ```
 
-#### Parse Option Flags (while and shift)
+#### `shift`
+
+- `shift [count]` 
+- removes `[count]` number of arguments from the beginning of the `argv`
+
+```bash
+myFunction() {
+	echo "$1 : $argv"
+	shift
+	echo "$1 : $argv"
+	shift
+	echo "$1 : $argv"
+}
+myFunction 1 2 3	
+# 1 : 1 2 3
+# 2 : 2 3
+# 3 : 3
+```
+
+#### Parse Flagged Options with `while` and `shift`
 
 ```sh
 while [[ $# > 1 ]]
@@ -665,27 +771,145 @@ do
 done
 ```
 
+### Special Parameters
+
+#### `$?`
+
+- find the return value of the last executed command
+
+#### `$$`
+
+- `PID` of current shell
+- `ps -p $$` will print current shell's name 
+
+#### `$!`
+
+- `PID` of last process
+
+#### `$-`
+
+- current **shell's** flags
+
+#### `$_`
+
+- arguments provided to the last **command**
+
+### ☑️ Parameter Expansions
+
+아래 예를 테스트하기 위한 변수: string="abc-efg-123-abc"
+
+| 문자                       | 설명                                                         |
+| -------------------------- | ------------------------------------------------------------ |
+| ${변수}                    | $변수와 동일하지만 {} 사용해야만 동작하는 것들이 있음(예: echo ${string}) |
+| ${변수:위치}               | 위치 다음부터 문자열 추출(예: echo ${string:4})              |
+| ${변수:위치:길이}          | 위치 다음부터 지정한 길이 만큼의 문자열 추출(예: echo ${string:4:3}) |
+| ${변수:-단어}              | 변수 미선언 혹은 NULL일때 기본값 지정, 위치 매개 변수는 사용 불가(예: echo ${string:-HELLO}) |
+| ${변수-단어}               | 변수 미선언시만 기본값 지정, 위치 매개 변수는 사용 불가(예: echo ${string-HELLO}) |
+| ${변수:=단어}              | 변수 미선언 혹은 NULL일때 기본값 지정, 위치 매개 변수 사용 가능(예: echo ${string:=HELLO}) |
+| ${변수=단어}               | 변수 미선언시만 기본값 지정, 위치 매개 변수 사용 가능(예: echo ${string=HELLO}) |
+| ${변수:?단어}              | 변수 미선언 혹은 NULL일때 단어 출력 후 스크립트 종료,(예: echo ${string:?HELLO}) |
+| ${변수?단어}               | 변수 미선언시만 단어 출력 후 스크립트 종료(예: echo ${string?HELLO}) |
+| ${변수:+단어}              | 변수 선언시만 단어 사용(예: echo ${string:+HELLO})           |
+| ${변수+단어}               | 변수 선언 혹은 NULL일때 단어 사용(예: echo ${string+HELLO})  |
+| ${#변수}                   | 문자열 길이(예: echo ${#string})                             |
+| ${변수#단어}               | 변수의 앞부분부터 짧게 일치한 단어 삭제(예: echo ${string#a*b}) |
+| ${변수##단어}              | 변수의 앞부분부터 길게 일치한 단어 삭제(예: echo ${string##a*b}) |
+| ${변수%단어}               | 변수의 뒷부분부터 짧게 일치한 단어 삭제(예: echo ${string%b*c}) |
+| ${변수%%단어}              | 변수의 뒷부분부터 길게 일치한 단어 삭제(예: echo ${string%%b*c}) |
+| ${변수/찾는단어/변경단어}  | 처음 일치한 단어를 변경(예: echo ${string/abc/HELLO})        |
+| ${변수//찾는단어/변경단어} | 일치하는 모든 단어를 변경(예: echo ${string//abc/HELLO})     |
+| ${변수/#찾는단어/변경단어} | 앞부분이 일치하면 변경(예: echo ${string/#abc/HELLO})        |
+| ${변수/%찾는단어/변경단어} | 뒷부분이 일치하면 변경(예: echo ${string/%abc/HELLO})        |
+| ${!단어*}, ${!단어@}       | 선언된 변수중에서 단어가 포함된 변수 명 추출(예: echo ${!string*}, echo ${!string@}) |
 
 
 
+## ☑️ Reserved Variables
 
----
+### `which <keyword>`
+
+find executable keyword's source, defined in
+
+- `$PATH` Variable (see more in [this article](how-exactly-environment-variable-work))
+- `alias` or `function` defined in shell configuration
+
+
+
+| 문자          | 설명                                                         |
+| ------------- | ------------------------------------------------------------ |
+| HOME          | 사용자의 홈 디렉토리                                         |
+| PATH          | 실행 파일을 찾을 경로                                        |
+| LANG          | 프로그램 사용시 기본 지원되는 언어                           |
+| PWD           | 사용자의 현재 작업중인 디렉토리                              |
+| FUNCNAME      | 현재 함수 이름                                               |
+| SECONDS       | 스크립트가 실행된 초 단위 시간                               |
+| SHLVL         | 쉘 레벨(중첩된 깊이를 나타냄)                                |
+| SHELL         | 로그인해서 사용하는 쉘                                       |
+| PPID          | 부모 프로세스의 PID                                          |
+| BASH          | BASH 실행 파일 경로                                          |
+| BASH_ENV      | 스크립트 실행시 BASH 시작 파일을 읽을 위치 변수              |
+| BASH_VERSION  | 설치된 BASH 버전                                             |
+| BASH_VERSINFO | BASH_VERSINFO[0]~BASH_VERSINFO[5]배열로 상세정보 제공        |
+| MAIL          | 메일 보관 경로                                               |
+| MAILCHECK     | 메일 확인 시간                                               |
+| OSTYPE        | 운영체제 종류                                                |
+| TERM          | 로긴 터미널 타입                                             |
+| HOSTNAME      | 호스트 이름                                                  |
+| HOSTTYPE      | 시스템 하드웨어 종류                                         |
+| MACHTYPE      | 머신 종류(HOSTTYPE과 같은 정보지만 조금더 상세하게 표시됨)   |
+| LOGNAME       | 로그인 이름                                                  |
+| UID           | 사용자 UID                                                   |
+| EUID          | su 명령에서 사용하는 사용자의 유효 아이디 값(UID와 EUID 값은 다를 수 있음) |
+| USER          | 사용자의 이름                                                |
+| USERNAME      | 사용자 이름                                                  |
+| GROUPS        | 사용자 그룹(/etc/passwd 값을 출력)                           |
+| HISTFILE      | history 파일 경로                                            |
+| HISTFILESIZE  | history 파일 크기                                            |
+| HISTSIZE      | history 저장되는 개수                                        |
+| HISTCONTROL   | 중복되는 명령에 대한 기록 유무                               |
+| DISPLAY       | X 디스플레이 이름                                            |
+| IFS           | 입력 필드 구분자(기본값:  - 빈칸)                            |
+| VISUAL        | VISUAL 편집기 이름                                           |
+| EDITOR        | 기본 편집기 이름                                             |
+| COLUMNS       | 현재 터미널이나 윈도우 터미널의 컬럼 수                      |
+| LINES         | 터미널의 라인 수                                             |
+| LS_COLORS     | ls 명령의 색상 관련 옵션                                     |
+| PS1           | 기본 프롬프트 변수(기본값: bash\$)                           |
+| PS2           | 보조 프롬프트 변수(기본값: >), 명령을 "\"를 사용하여 명령 행을 연장시 사용됨 |
+| PS3           | 쉘 스크립트에서 select 사용시 프롬프트 변수(기본값: #?)      |
+| PS4           | 쉘 스크립트 디버깅 모드의 프롬프트 변수(기본값: +)           |
+| TMOUT         | 0이면 제한이 없으며 time시간 지정시 지정한 시간 이후 로그아웃 |
+
+###  `PATH`
+
+```shell
+```
+
+
 
 ## Variables
 
-### Assignment
+### Variable Assignment
+
+Variable and value should ***not be spaced*** 
 
 ```bash
-hello="world"
-echo "$hello"
-# outputs, world
+foo = "bar"
+echo "$foo"		# foo: command not found
+
+foo="bar"
+echo "$foo"		# bar
 ```
 
-### Inline Assignment with `read`
+### Inline Variable Assignment with `read`
 
 ```sh
 echo foo | read bar
 ```
+
+
+
+## Arrays
 
 ### Array Assignment
 
@@ -696,54 +920,236 @@ arr_1[2]="C"
 
 # in one line
 arr_2=("A" "B" "C")
-
 ```
 
-### Split String into Array
+### Array Assignment with String Split
 
 see [Split String into Array with IFS](#split-string-into-array-with-ifs)
 
+### Reading Array
+
+```shell
+#!/bin/bash
+arr=("A" "B" "C")
+
+echo $arr 		# A
+echo ${arr[0]}  # A
+
+echo ${arr[@]}  # A B C
+echo ${arr[*]}  # A B C
+
+echo ${!arr[@]}  # 0 1 2 
+echo ${!arr[*]}  # 0 1 2 
+```
+
+#### Array in `for`
+
+```shell
+#!/bin/bash
+arr=("A" "B" "C")
+
+for el in ${arr[@]}; do
+	echo $el
+done
+# A B C
+```
+
+```shell
+#!/bin/bash
+arr=("A" "B" "C")
+
+for idx in ${!arr[@]}; do
+	echo $idx
+done
+# 0 1 2
+```
+
+## ☑️ `function`
+
+```bash
+myFunction() {
+	echo "$1"
+	echo "$2"
+	echo "$3"
+}
+myFunction 1 2 3	# 1 2 3
+```
+
+```bash
+function myFunction() {
+	echo "$1"
+	shift
+	echo "$1"
+	shift
+	echo "$1"
+}
+myFunction 1 2 3	# 1 2 3
+```
+
+## ☑️ Scopes
+
+### ☑️ `alias`
+
+```bash
+# alias will 
+alias my_command='open -a <application or executable> <args>'
+alias code='opan -a "Visual Studio Code"'
+```
+
+### ☑️ `Export`
+
+```bash
+
+```
 
 
 
 
-------
 
-## Flow Controls
+# Expressions
 
-### `if`
+## Arithmetic Evaluations
 
-#### Baisc Syntax
+### `(( ))`
 
-`if` and `brackets` must be spaced.
+- arithmatic evaluation
+
+```bash
+#!/bin/bash
+((a = 1+2))
+echo $a		# 3
+
+((b = "1"+"2"))
+echo $b		# 3
+```
+
+### `()` is not an evaluator
+
+- see [this section](#-12)
+
+### `let`
+
+- shorthand for arithmetic evaluation
+
+```shell
+#!/bin/bash
+let a=1+2
+echo $a			# 3
+
+let b="1"+"2"
+echo $b			# 3
+```
+
+### `$(( ))`
+
+- it's an arithmetic evaluation and expansion
+- ***Returns*** calculated value
+
+```bash
+#!/bin/bash
+$((1+2)) 			# command not found: 3
+
+echo $((1+2)) 		# 3
+
+a="foo"
+b="bar"
+c=$(( a += "$b" ))
+echo $c				# foobar
+```
+
+### String Concat in Arithmetic Evaluation
+
+```shell
+c="foo"
+((c+="bar"))
+echo $c		# 0, string concat does not work in arithmetic evaluation
+
+# string concat operators should be used like this
+c="foo"
+c+="bar"
+echo $c		# foobar
+```
+
+
+
+## Arithmetic Operators
+
+- Identical to other languages
+
+| +    | 더하기                                    |
+| ---- | ----------------------------------------- |
+| -    | 빼기                                      |
+| *    | 곱하기                                    |
+| /    | 나누기                                    |
+| **   | 누승(exponentiation), 거듭제곱(power)     |
+| %    | modulo 나 mod (정수 나누기에서 나머지 값) |
+| +=   | 상수값 만큼 증가(plus-equal)              |
+| -=   | 상수값 만큼 감소(minus-equal)             |
+| *=   | 상수값을 곱함(times-equal)                |
+| /=   | 상수값으로 나눔(slash-equal)              |
+| %=   | 상수값으로 나눈 나머지 값(mod-equal)      |
+
+
+
+## Conditional Evaluations
+
+### `test`
+
+- [see this section](#file-test-operators) for file testing operators
+
+### `[]`
+
+- same as traditional `test` command
+- POSIX standard
+
+### `[[ ]]`
+
+- not a POSIX standard, and for bash, zsh and else
+
+- it provides more features like, 
+
+  - `&&` and `||` operator
+
+    ```bash
+    [[ $string == "keyword" && 1 == "1" ]]
+    ```
+
+  - wildcard matching
+
+    ```bash
+    [[ "$string" == *"keyword"* ]]
+    ```
+
+  - regex matching
+
+    ```bash
+    [[ $string =~ "keyword" ]]
+    ```
+
+### `If`
+
+>  `if` and `brackets` must be spaced.
 
 ```sh
-if [[ <condition> ]]; 
-	then 
-		<commands on true condition>
-	else 
-  	<commands on false condition>
+if [[ <condition> ]]; then 
+	...
+elif [[]]; then
+	...
+else [[]]
+	...
 fi
 ```
 
-#### Double brackets `[[]]` for `bash`.
 
-[source](https://stackoverflow.com/a/47576482/13287692)
 
-In `bash`, you have more features like expanding variables with `[[]]` 
+## Conditional Operators
 
-`[]` is POSIX standard, and can't do what `[[]]` can do.
+### `true`, `false` and `:`
 
-If you have to worry about `bash`'s compatibility, you should go with POSIX standards. But in most containerized productions envionments, using bash will be no problem.
+- `true` and `:` Both means true, but `:` is more portable than `true`
+- in conditions, it's opposite to C language. `true` is `0` and `false` is `1`
 
-```sh
-[[ "$string" == *"keyword"* ]]
-[[ $string =~ "keyword" ]]
-```
-
-#### Integer Comparison Operators
-
-Integer comparison more than `==` `!=`, can be achieved with flags below.
+### Integer Comparison Operators
 
 ```sh
 -eq # Equal
@@ -751,10 +1157,71 @@ Integer comparison more than `==` `!=`, can be achieved with flags below.
 -lt # Less than
 -le # Less than or equal
 -gt # Greater than
--ge # Greater than or equal
+-ge # Greater than or equal 
+
+<
+<=
+>
+>=
 ```
 
-### `for` with array
+### String Comparison Operators
+
+```shell
+=
+==
+!=
+
+if [[ "$a" < "$b" ]]
+if [ "$a" \< "$b" ]
+
+if [[ "$a" > "$b" ]]
+if [ "$a" \> "$b" ]
+
+if [ -z "$String" ] # is null?
+
+if [ -n "$String" ] # is not null?
+```
+
+### File test operators
+
+[block vs character files](https://unix.stackexchange.com/questions/60034/what-are-character-special-and-block-special-files-in-a-unix-system)
+
+```shell
+if [ -e "/my/file" ]; then ...; fi
+-e	# exists?
+
+-f	# normal file?
+-b  # block device file?
+-c  # character device file?
+
+-d	# directory?
+-L  # symlink?
+
+-r  # read permission?
+-w  # write permission?
+-x  # execute permission?
+
+-p  # named pipe (FIFO)?
+-s  # file size is not 0?
+-t  # 
+
+
+# those options can also be used inline with "test"
+test -x [path_to_file]; echo $!# file exists?
+```
+
+
+
+## Loops
+
+### Commons
+
+#### `break`, `continue` is same as other languages
+
+### `for`
+
+#### `for` with array
 
 ```bash
 #!/bin/bash
@@ -774,7 +1241,7 @@ done
 # C
 ```
 
-### `for` with `seq`
+#### `for` with `seq`
 
 `seq` is similar to python's `range()` internal method. You can create array ranged array with it. And it can also add custom delimiter between them.
 
@@ -786,7 +1253,7 @@ for i in ${seq -s " " 3);do
 done
 ```
 
-### `for` in bash
+#### `for` with arithmetic expression
 
 In bash, you can use indexed iteration like other languages.
 
@@ -799,7 +1266,9 @@ do
 done
 ```
 
-### `case` with `while`
+### `case`
+
+#### with `while`
 
 ```sh
 while <array>;
@@ -812,17 +1281,159 @@ do
 done
 ```
 
+#### ☑️ with `for`
+
+```shell
+
+
+
+
+```
+
+
+
+### `while`
+
+#### `IFS` and `while`
+
+If you wrap `IFS` inside `while`, you can avoid `IFS ` assignment leaking outside.
+
+```shell
+while <array>;
+do
+	case in <array element>
+		<condition>|...|<condition>)
+			<do something>
+		;;
+	esac
+done
+```
+
+
+
+### `until`
+
+```shell
+idx=10
+until [ $idx -le 5 ]; do
+    echo $range
+    idx--
+done
+```
+
+
+
+
+
+# Execution
+
+## Running Executables
+
+Syntax : `[path_to_executable]` or `[path_to_script]` or `[path_to_shell] [path_to_script]`
+
+- Run file or script with a ***new*** shell. 
+- Path should be a relative or absolute path, not just a name of file.
+- i.e. not `my-file.sh` but `./my-file.sh`
+
+
+
+## `.` vs `source`
+
+- Same Feature : Run content of the file as a ***subprocess*** in the ***current*** shell.
+- Difference between two is portability.
+
+`.` is POSIX standard and `source` is bash or others.
+
+
+
+## `exec`
+
+> [reference : exec vs eval](https://unix.stackexchange.com/a/296852)  
+>
+> [reference : about exec](https://www.geeksforgeeks.org/exec-command-in-linux-with-examples/)
+
+### With Commands
+
+- ***replaces current shell*** process (not a subprocess) and executes following command
+- This means the `PID` will be the same between the current shell and the exec.
+- options
+  - `[-c] ` execute command with empty environment
+  - `[-l]` pass dash as `argv[0]`
+  - `[-a name]` passshell executable as `argv[0]`, Otherwise the default one is used.
+
+### With Redirection
+
+- it redirects command ouput to the designated path.
+- it can be used to modify the current shell's environment
+
+```shell
+#!/bin/bash
+exec > my-path
+ls				# nothing prints
+echo new-file	# nothing prints
+
+exit
+
+cat my-path
+
+# Desktop
+# Documents
+# ...
+# new-file
+```
+
+
+
+## `eval`
+
+- Evaluate string as commands in the ***current*** shell. 
+- This means the `PID` will be the same between the current shell and the exec
+
+```shell
+foo=bar
+cmd="foo=baz"
+echo $foo  # bar
+
+eval "$cmd"
+echo $foo  # baz
+```
+
+
+
+## `()`
+
+- `()` runs command inside as a subshell.
+
+- This provides encapsulation around the command.
+
+```bash
+#!/bin/bash
+echo $BASHPID	# 33763
+(echo $BASHPID)	# 36848
+```
+
+
+
+## ☑️ Make Execution Routines with `crontab`
+
+```shell
+* * * * * * <command>
+s m h D M Y
+
+# "/" for "per every"
+```
+
 
 
 
 
 ------
 
-## Process Management
+# Process Management
 
-### Listing Processes
+## Listing Processes
 
-#### `ps`
+### `ps`
 
 **return currently-running process' status**
 
@@ -830,19 +1441,19 @@ done
 - `-x` : include process out of this shell's scope (like daemons)
 - `-u` : group processes by user
 
-#### `top`
+### `top`
 
 **realtime, interactive view for currently-running processes**
 
 - btop / htop (ones with better interactivity)
 
-### Manipulating Processes
+## Manipulating Processes
 
-#### `kill <process id>`
+### `kill <process id>`
 
 - kill process
 
-#### `sleep <seconds as integer>`
+### `sleep <seconds as integer>`
 
 - sleep execution of current shell
 
@@ -857,15 +1468,15 @@ Following are the most common reserved exit codes.
   - `1` : General errors 
   - `2` : Misuse of shell builtins
 
-### Background Processes
+## Background Processes
 
 > To make background procss properly, use process managers like pm2
 
-#### `^ z` key on keyboard
+### `^ z` key on keyboard
 
 suspend process
 
-#### `jobs`
+### `jobs`
 
 show current jobs including bg processes
 
@@ -876,7 +1487,7 @@ jobs
 # [2] + Suspended <process>
 ```
 
-#### `bg` and `fg`
+### `bg` and `fg`
 
 - push process background or bring process foreground
 
@@ -886,25 +1497,21 @@ bg %2 # push job number 2 to the background
 fg %2 # bring job number 2 to the foreground
 ```
 
-#### `<commands> &` 
+### `<commands> &`
 
 - make a background process of a command
 
-#### `<commands> disown`
+### `<commands> disown`
 
 - process is removed from the list of jobs in the current interactive shell
 - current shell won't send it a `SIGHUP` when exiting
 - a POSIX standard
 
-#### `nohup <commands>` [source](https://serverfault.com/questions/34750/is-it-possible-to-detach-a-process-from-its-terminal-or-i-should-have-used-s)
+### `nohup <commands>` [source](https://serverfault.com/questions/34750/is-it-possible-to-detach-a-process-from-its-terminal-or-i-should-have-used-s)
 
 - process ignores `SIGHUP`
 - redirects output to `nohup.out`
 - not a POSIX standard
-
-#### bandwidth test
-
-**https://phoenixnap.com/kb/linux-network-speed-test#ftoc-heading**
 
 
 
@@ -912,83 +1519,51 @@ fg %2 # bring job number 2 to the foreground
 
 ---
 
-## ☑️ Network Protocols
+# Network and Protocols
 
-#### ☑️ `ping` 
+## Network Stats
 
-#### ☑️ `curl`
+### ☑️ `port`
 
-#### ☑️ `sftp`
+- 
 
-#### ☑️ `sshfs`
+### ☑️ `ping`
 
-#### ☑️ `mail`
+- 
+
+### ☑️ test bandwidth
+
+**https://phoenixnap.com/kb/linux-network-speed-test#ftoc-heading**
+
+## Common Network Protocols
+
+### ☑️ `curl`
+
+- 
+
+### ☑️ `sftp`
+
+- 
+
+### ☑️ `sshfs`
+
+- 
 
 
 
 ------
 
-## System Environments
+# System Environment
 
-### OS Stats
-
-#### `ps -p $$`
-
-which shell am I using?
-
-#### `which <keyword>`
-
-find executable keyword's source, defined in
-
-- `$PATH` Variable (see more in [this article](how-exactly-environment-variable-work))
-- `alias` or `function` defined in shell configuration
-
-#### (linux) `/etc/os-release`
+### `/etc/os-release` (linux only)
 
 - os release version information is stored here
 
-#### `reboot`
+### `reboot`
 
-reboot this machine
+- reboot this machine
 
-#### `df -h <?path>`
-
-check disk space
-
-- `-h` is human-readable
-- `-H` is for 1000 instead of 1024
-- if <?path> is empty it displays whole accessible disks
-
-### Make Routines with `crontab`
-
-### Prevent Device Sleep (for desktops)
-
-I use this for making my old mac book pro into a persistent server
-
-#### (mac) `caffeinate`
-
-#### (linux) `systemd-ihibit`
-
-### Clipboards
-
-#### copy and paste with clipboard
-
-- `xclip -selection clipboard` and `xclip -selection clipboard -o` 
-- `pbcopy` and `pbpaste`
-
-#### copy from remote shell
-
-- remote shell will not copy to your local machine's clipboard
-- there are some options to do this, but I recommend number 3 for daily use
-  1. use `⌘ s` to save your current terminal window's content
-     - it'll only copy visible lines in terminal window
-  2. copy contents to temporary file and send the file to your local machine 
-     - it'll be too much work for frequent use
-  3. use `cat`,`head`,`tail` to print the file content on terminal and use mouse to drag over content and use `⌘ c` to copy.
-
-### ☑️ Locale
-
-#### ☑️ Output
+### ☑️ Locale Settings
 
 ```bash
 # mac
@@ -1000,78 +1575,16 @@ export LANG=en_US.UTF-8
 
 ```
 
-- **centos7 (https://thefif19wlsvy.tistory.com/245)**
-- **ubuntu (https://pragp.tistory.com/entry/Docker-한글-설정하기)**
+- centos7 (https://thefif19wlsvy.tistory.com/245)
+- ubuntu (https://pragp.tistory.com/entry/Docker-한글-설정하기)
+- ubuntu (https://donghak-dev.tistory.com/17)
 
-#### ☑️ Input
+### Prevent Desktops from Sleeping
 
-```sh
-# mac
+- (for mac) `caffeinate`
+  - I use this for making my old mac book pro into a persistent server
 
-# centos
-
-# ubuntu
-```
-
-- **centos7**
-- **ubuntu (https://donghak-dev.tistory.com/17)**
-
-
-
-
-
-------
-
-## Some Useful Commands
-
-### Difference Between Many Config Files
-
-`zsh` https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
-
-☑️ `bash`
-
-### Open app with `alias`
-
-```bash
-# open app with aliases
-alias my_command='open -a <application or executable> <args>'
-alias code='opan -a "Visual Studio Code"'
-```
-
-### Backup Automation with `rsync` and `crontab`
-
-```bash
-remote_queue=(
-	"<user-name>@<server-ip>:/Path/Target/Backup"
-	# "root@143.198.236.175:/backup/"
-)
-local_queue=(
-	"/Path/Source/Backup/1"
-	"/Path/Source/Backup/2"
-	"/Path/Source/Backup/3"
-)
-
-backup() {
-	for remote in "${remote_queue[@]}"
-	do
-		for local in "${local_queue[@]}"
-		do
-			echo "\\n\\n\\n $local to $remote\\n"
-			rsync -avhPe "ssh -i /path/to/ssh/pvt/key -p <port>" $local $remote --exclude=".DS_Store" --exclude='\\*.log' --exclude="other things to exclude" --delete
-		done
-	done
-}
-```
-
-### Register SSH Agent On Shell Login
-
-```bash
-sshagent() {
-	[ -z "$SSH_AUTH_SOCK" ]
-	eval "$(ssh-agent -s)"
-	eval "$(ssh-add ~/.ssh/mbp13)"
-}
-```
+- (for linux) `systemd-ihibit`
 
 
 
@@ -1079,7 +1592,7 @@ sshagent() {
 
 ---
 
-## ☑️ String Matching and Manipulation
+# String Matching and Manipulation
 
 
 
@@ -1204,7 +1717,7 @@ awk <options> '<selection> <_criteria> <{action}>' input-file > output-file
 
 `FNR`
 
-### Example Usecase
+### Example Usecase of String Manipulation
 
 Bash string manipulation is useful when you're trying to parse CLI inputs from user, and then pipe it into another command
 
@@ -1254,6 +1767,39 @@ escape 'old string' |
 
 ------
 
+# Some Useful Examples
+
+### Backup Automation with `rsync` and `crontab`
+
+```bash
+remote_queue=(
+	"<user-name>@<server-ip>:/Path/Target/Backup"
+	# "root@143.198.236.175:/backup/"
+)
+local_queue=(
+	"/Path/Source/Backup/1"
+	"/Path/Source/Backup/2"
+	"/Path/Source/Backup/3"
+)
+
+backup() {
+	for remote in "${remote_queue[@]}"
+	do
+		for local in "${local_queue[@]}"
+		do
+			echo "\\n\\n\\n $local to $remote\\n"
+			rsync -avhPe "ssh -i /path/to/ssh/pvt/key -p <port>" $local $remote --exclude=".DS_Store" --exclude='\\*.log' --exclude="other things to exclude" --delete
+		done
+	done
+}
+```
+
+
+
+
+
+------
+
 > **Reviews**
 >
 > last reviewed : 2021-12-21
@@ -1268,6 +1814,8 @@ escape 'old string' |
 > **References**
 >
 > (There's so many references from StackOverflow, so I omitted them. Thank you for all the StackOverflow community)
+>
+> - [ibm zOS commands](https://www.ibm.com/docs/en/zos/2.2.0?topic=reference-shell-command-descriptions)
 >
 > - [grep](https://www.gnu.org/software/grep/manual/grep.html)
 >
