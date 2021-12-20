@@ -1414,13 +1414,39 @@ echo $BASHPID	# 33763
 
 
 
-## ☑️ Make Execution Routines with `crontab`
+## ☑️ Create Execution Routines with `crontab`
 
 ```shell
 * * * * * * <command>
 s m h D M Y
 
 # "/" for "per every"
+```
+
+
+
+## `make`
+
+> [source](https://makefiletutorial.com/)
+
+- Runs `./makefile`
+- It usually help decide which parts of a large program need to be recompiled, primarily used for c/c++ projects
+- Other languages typically have their own tools that serve a similar purpose as Make
+- series of instructions to run depending
+
+```bash
+# Usage:
+# make        # compile all binary
+# make clean  # remove ALL binaries and objects
+
+py = python3
+
+all:
+	echo ${py}
+
+foo.log: %.py
+	echo "running python file"
+	${py} $<
 ```
 
 
