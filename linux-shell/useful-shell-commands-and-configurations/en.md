@@ -710,12 +710,27 @@ Command line arguments are the strings following your command.
 
 #### `--`
 
-- signify the end of command options
-- i.e. you can grep literal `-v` which will considered an option without `--`
+- double dash
 
-```bash
-grep -- -v file
-```
+- signify the end of command options
+
+- i.e. `grep` literal `-v`, otherwise it'll be considered as an option of `grep`
+
+  ```bash
+  grep -v file		# does not work
+  
+  grep -- -v file		# greps "-v"
+  ```
+
+- i.e. `pm2 ` pass options to command, otherwise it'll be considered as an option of  pm2
+
+  ```bash
+  pm2 start http-server ./my-path --port 3000		
+  # will try to run both "http-server" and "./my-path" with option --port 3000
+  
+  pm2 start http-server -- ./my-path --port 3000
+  # options are passed to "http-server"
+  ```
 
 #### `shift`
 
