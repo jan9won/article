@@ -1440,9 +1440,11 @@ s m h D M Y
 
 
 
-## `make`
+## `make` and `makefile`
 
-> [source](https://makefiletutorial.com/)
+> [makefile tutorial](https://makefiletutorial.com/)
+>
+> [example of makefile : osx brew airport](https://github.com/xwmx/airport/blob/master/Makefile)
 
 - Runs `./makefile`
 - It usually help decide which parts of a large program need to be recompiled, primarily used for c/c++ projects
