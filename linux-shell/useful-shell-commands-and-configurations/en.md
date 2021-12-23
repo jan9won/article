@@ -1515,7 +1515,7 @@ Following are the most common reserved exit codes.
 
 ### `^ z` key on keyboard
 
-suspend process
+suspends process from running
 
 ### `jobs`
 
@@ -1538,21 +1538,16 @@ bg %2 # push job number 2 to the background
 fg %2 # bring job number 2 to the foreground
 ```
 
-### `<commands> &`
+### Difference between `nohup`, `disown` and `&`
 
-- make a background process of a command
+Stack Exchange [Source](https://unix.stackexchange.com/questions/3886/difference-between-nohup-disown-and)
 
-### `<commands> disown`
-
-- process is removed from the list of jobs in the current interactive shell
-- current shell won't send it a `SIGHUP` when exiting
-- a POSIX standard
-
-### `nohup <commands>` [source](https://serverfault.com/questions/34750/is-it-possible-to-detach-a-process-from-its-terminal-or-i-should-have-used-s)
-
-- process ignores `SIGHUP`
-- redirects output to `nohup.out`
-- not a POSIX standard
+|                           | Separation from job control                                  | Separation from terminal stdio                              | Background                                                   | When the shell receives `SIGHUP`   | standard             |
+| ------------------------- | ------------------------------------------------------------ | :---------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------- | -------------------- |
+| normal process            | none                                                         | inherits stdin/stdout/stderr from the shell                 | no                                                           | sends `SIGHUP` to the process      | -                    |
+| `&`                       | none                                                         | `stdout/stderr` inherits shell, but `stdin` doesn't         | puts process background, `bg` does same thing, `fg` brings it back. | sends `SIGHUP` to the process      | a POSIX standard     |
+| `disown [...jobs]`        | removes the job from the shell's job control list, but still connected to the terminal. | `stdout/stderr` inherits shell, but `stdin` doesn't         | can only applied to jobs that ar e ***alreay*** on background | shell **won't send** it a `SIGHUP` | a POSIX standard     |
+| `nohup [job] > [outfile]` | doesn't remove the process from the job list                 | closes `stdin` and redirects `stdout/stderr` to `nohup.out` | no                                                           | **shields** process from `SIGHUP`  | not a POSIX standard |
 
 
 
