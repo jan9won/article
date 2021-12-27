@@ -14,7 +14,7 @@
 
 # Introduction
 
-## terminal, shell and console
+## Terminal, Shell and Console
 
 Differences of these concepts are insignificant for modern computer users, but here are short descriptions.
 
@@ -120,7 +120,7 @@ terminal (remote or local, multiple, user interface)
 
 ---
 
-## What are Interactive, Login Shells?
+## Interactive, Login Shells
 
 ### TL;DR
 
@@ -212,7 +212,7 @@ terminal (remote or local, multiple, user interface)
 
 
 
-## Difference Between Many Config Files
+## Different Shell Config Files
 
 - `bash` 
   - `~/.bash_profile` is for login shells
@@ -223,15 +223,19 @@ terminal (remote or local, multiple, user interface)
 - `zsh` 
   - [reference](https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout)
 
-## Some Stats and Configs
+## Configure Default Shell
+
+### `echo $0`
+
+- print shell you're currently using
 
 ### `cat /etc/shells`
 
 - print your available shells
 
-### `chsh [user]`
+### `chsh [username]`
 
-- change shell for user
+- change default shell for user
 - it will require input for the shell paths you can get with `cat /etc/shells` above
 - or you can run `chsh -s /bin/<shell binary>` command
 
@@ -243,35 +247,145 @@ terminal (remote or local, multiple, user interface)
 
 # Auth & Permission
 
-## Why worry about having many users?
+## ☑️ Shell Encryption TL;DR
 
-- Back in the days, most computers were owned by organizations like universites, and many users did i/o on a single machine through terminals like puchcard and printer. 
-- So systems needed to authentical users and give permission to the file on the same disk.
+### Assymetric Encryption
 
-- We can also have many users on one machine today. i.e. desktops can be used by multiple family members, and servers can be maintained by many admins.
+- How it works
+  1. On protocol handshake, server send random string.
+  2. Client encrypts the string with private key, and send back to the server.
+  3. Server decrypts string with public key.
+     - If it matches initial string, success.
+     - If it doesn't match, failure.
+  4. If handshake successes, two shells will communicate 
 
-## Authentication
+- Typical Assymetric Encryption Algorithms
+  - SSH
+  - ECDSA (elliptic curve digital signature algorithm)
 
-### ☑️ ssh
+### SSH
 
-#### ssh key pair generation (local)
+- Acronym for Secure Shell
+- 
 
-```sh
+### SSH Protocol
 
+## ☑️ Create and Manage User
+
+### Create a new user
+
+```bash
+adduser [username]
 ```
 
-#### ssh public key register (remote)
+- `useradd` command can also create user, but won't do basic jobs like creating user's home directory. 
 
-```sh
+- So using `adduser` is good to go for most situations.
 
+- Don't use root user for remote access. Although you can disable password access, it is still dangerous to store private key on your local machine. So login as a user, and `sudo` to get permission for each execution.
+
+### List Users
+
+`/etc/passwd` includes list of users. 
+
+But as it also includes system users, and they're assigned under user number 1000. So if you want to print non-system user, use command below.
+
+```bash
+awk -F: '$3 >= 1000' /etc/passwd
 ```
 
-#### .ssh/config file
+### Manage User's sudo Accessibility
 
-```sj
+- ### `sudo` previllage can be edited with `usermod` and `gpasswd`
+
+  - `usermod` can edit user's **primary** group
+
+    ```bash
+    usermod
+    ```
+
+  - `gpasswd` can only edit user's **supplementary** group
+
+    ```bash
+    gpasswd
+    ```
+
+  - or use `visudo` to edit `/etc/sudoers` directly 
+
+    (you can't edit this file, so `visudo` commad is necessary)
+
+    ```bash
+    # add user to root
+    root		ALL = (ALL) ALL
+    NEW_USER	ALL = (ALL) ALL
+    
+    # add user to admin group (can become root user by "su")
+    %admin		ALL = (ALL) ALL
+    NEW_USER	ALL = (ALL) ALL
+    
+    # add user to sudo group (execution only)
+    %sudo		ALL = (ALL) ALL
+    NEW_USER	ALL = (ALL) ALL
+    ```
+
+    after this, you should reset permission to `/etc/sudoers` to readonly ( `440` or `-r--r----` )
+
+- Check user's primary and supplementary groups with
+
+  ```bash
+  id -a [username]
+  ```
+
+  ```bash
+  # sample result on my mac
+  uid=501(jangwonsuh) gid=20(staff) groups=20(staff),399(com.apple.access_ssh
+  ```
+
+  - `uid` is user's id
+  - `gid` is user's primary group
+  - everything behind `groups` is user's supplementary groups
+
+## ☑️ Configure SSH Access of the User
+
+> This section assumes OpenSSH version 8.8
+
+### Generate Key Pair on the local machine.
+
+```bash
+ssh-keygen -t rsa
 ```
 
-#### ssh daemon configuration
+- option `-t` choose encryption algoritm `[dsa | ecdsa | ecdsa-sk | ed25519 | ed25519-sk | rsa] ` 
+
+  - `rsa` is a go to choice as it's most widely accepted in majority of applications
+
+  - In most versions it defaults to `rsa` but to make it sure, use `-t rsa` option
+
+### Create a new user on the remote machine, if there isn't.
+
+### Send and Register Public Key to Remote
+
+- Authorized public keys are stored in `~/.ssh/authorized_keys`, each keys are separated with newline as delimiter.
+
+- You can append new key to the file in one line with ssh.
+
+  ```bash
+  cat [PUBLIC_KEY] | ssh [USERNAME]@[HOST] "cat >> ~/.ssh/authorized_keys"
+  ```
+
+### Edit `.ssh/config` file For Shorthand Command
+
+```bash
+# ~/.ssh/config
+
+Host myserver
+    HostName [IP_ADDRESS]
+    User [USER_NAME]
+    IdentityFile ~/.ssh/[PUBLIC_KEY]
+    AddKeysToAgent yes # When enabled, a private key will be added to ssh-agent if it is running. No passphrase will be required while this ssh-agent is running.
+```
+
+### ssh daemon configuration on remote machine
 
 ```sh
 # mac
@@ -284,7 +398,7 @@ port
 password authentication false
 ```
 
-#### restart running ssh daemon after configuration
+### restart running ssh daemon after configuration on remote machine
 
 ```bash
 # mac
@@ -295,7 +409,7 @@ sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
 
 ```
 
-#### Register SSH Agent On Shell Login
+### Register SSH Agent On Login Shell Login
 
 ```bash
 sshagent() {
@@ -308,13 +422,9 @@ sshagent() {
 
 
 
-## Security
+## Minimum Security Measures
 
-### ☑️ firewall
-
-- 
-
-### ☑️ fail2ban
+### ☑️ firewall and fail2ban
 
 - ban authentication attempt of the IP address that failed too many times
 
@@ -329,26 +439,35 @@ lastLogin=$(last | grep -wv 'still' | head -n 3 | sed -E 's/\([0-9]*\:[0-9]*\)//
 stillLogin=$(last | grep 'still' | sed -E 's/\([0-9]*\:[0-9]*\)//g; s/ttys[0-9]*//g; s/ - / /g; s/ logged in//g; s/  */ /g; s/^/██ /' )
 ```
 
-## Permission
+## Permissions
+
+### Why worry about having many users?
+
+- Back in the days, most computers were owned by organizations like universites, and many users did i/o on a single machine through terminals like puchcard and printer. 
+- So systems needed to authentical users and give permission to the file on the same disk.
+
+- We can also have many users on one machine today. i.e. desktops can be used by multiple family members, and servers can be maintained by many admins.
 
 ### Edit Permission
 
 #### `chmod <permission> <file>`
 
-- Change file access permissions
+- Change permission of current user to the file.
+- See [chmod permission codes](#chmod-permission-codes)
 
 #### `chown <owner[:group]> <file>`
 
-- Change ownership of the file
+- Change ownership of the file to the user or user group.
 
 #### `chgrp <group> <file>`
 
-- Change user group of the file
+- Change group ownership of the file to the user group.
 
 #### `umask <permission>`
 
-- Configure file access for all the files to be created afterwards
-- without argument, it print current configuration
+- Configure permission for all the files to be created afterwards.
+- With no argument, it'll print current umask configuration.
+- 
 
 ### Get Permission Info
 
@@ -430,7 +549,7 @@ Each octal characters are assigned to following permissions
 - `umask` can configure directory level permissions, so it has different meaning.
 - The **symbolic writing mode rules are same** so you can use it here.
 
-#### `umask` File / Directory Permissions
+#### File / Directory Permissions
 
 0. `rw-` / `rwx`
 1. `rw-` / `rw-` 
@@ -441,18 +560,22 @@ Each octal characters are assigned to following permissions
 6. `--x` / `--x`
 7. `---` / `---`
 
-#### Frequently Used `umask` Permissions
+#### Frequently Used
 
-- The default permission for user is `022`
-- You'll see four digits (like `0022`) if you are root.
-- The first digit is for special permissions. 
+- The default for non-sudo user is `022`
+- The default for sudo user is `0022`
+  - The first additional digit is for special permissions. 
+  - `0` (none)
   - `1` SUID
-    - (file) Run program as owner
+    - (on file) Always run program as owner.
+    - (on directory) (none)
   - `2` SGID
-    - (file) Assign authority to run program as owner
-    - (directory) Inherit group ownership of all of the item beneath
+    - (on file) Assign authority to run program as owner.
+    - (on directory) Inherit group ownership to all the item beneath the directory.
   - `3` Sticky Bit
+    - (on file) (none)
     - (directory) Only owner of the file can delete the file in this directory
+
 
 
 
@@ -461,29 +584,6 @@ Each octal characters are assigned to following permissions
 ---
 
 # Files & I/O
-
-## basic printing
-
-### `echo`
-
-- sends `newline` as a last character
-- it can work differently on different systems
-- no more formatting abilities that just printing
-
-### `printf`
-
-- sends `EOF` as a last character, no `newline` so you should add it if it's needed
-- works same on every system (more portable)
-- allows much better formatting, it's based on C's `printf` function so usage of `%` signs are the same
-
-### `wc`
-
-- "word count" shows different counts of file's content
-- options
-  - `-c` bytes
-  - `-m` characters
-  - `-w` words
-  - `-l` lines
 
 ## standard i/o
 
@@ -498,6 +598,20 @@ a default place for input to go
 ### `stderr`
 
 a default place for error output to go
+
+## printing to shell
+
+### `echo`
+
+- sends `newline` as a last character
+- it can work differently on different systems
+- no more formatting abilities that just printing
+
+### `printf`
+
+- sends `EOF` as a last character, no `newline` so you should add it if it's needed
+- works same on every system (more portable)
+- allows much better formatting, it's based on C's `printf` function so usage of `%` signs are the same
 
 ## redirecting output to files
 
@@ -620,6 +734,15 @@ check size of path, directory will be added recursively
   D      door (Solaris)
   ```
 
+### `wc`
+
+- "word count" shows different counts of file's content
+- options
+  - `-c` bytes
+  - `-m` characters
+  - `-w` words
+  - `-l` lines
+
 ## Reading Files
 
 ### `cat`
@@ -661,7 +784,13 @@ check size of path, directory will be added recursively
      - it'll be too much work for frequent use
   3. use `cat`,`head`,`tail` to print the file content on terminal and use mouse to drag over content and use `⌘ c` to copy.
 
+## Sending Files Over Network
 
+### ☑️ `scp`
+
+### ☑️ `sftp`
+
+### ☑️ `sshfs`
 
 
 
@@ -1575,15 +1704,17 @@ Stack Exchange [Source](https://unix.stackexchange.com/questions/3886/difference
 
 ## Common Network Protocols
 
-### ☑️ `curl`
+### ☑️
+
+### `curl`
 
 - 
 
-### ☑️ `sftp`
+### `sftp`
 
 - 
 
-### ☑️ `sshfs`
+### `sshfs`
 
 - 
 
@@ -1800,6 +1931,36 @@ escape 'old string' |
 ```
 
 
+
+
+
+---
+
+# Packages
+
+## Manual Installation
+
+1. Download package from browser or with `curl -O [url] ` (see more in [curl](#curl) section)
+2. Run `build.sh` or `make`                          
+3. Add to `path` if necessary
+
+
+
+## Package Managers
+
+### `apt` Ubuntu
+
+### `yum` CentOS
+
+### `brew` MacOS
+
+### Runtimes
+
+#### `pip` Python
+
+#### `npm` NodeJS
+
+See more in this article "difference between npm, yarn and npx"
 
 
 
