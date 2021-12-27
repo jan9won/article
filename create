@@ -1,0 +1,173 @@
+#!/bin/bash
+
+########## Utilities
+# make string lowercase && use single "-" as delimiter
+escape(){
+	echo "$1" |
+	tr '[:upper:]' '[:lower:]' |
+	sed -E 's/[^a-zA-Z0-9]/-/g' |
+	sed -E 's/--*/-/g' |
+	sed -E 's/^-//g; s/-$//g'
+}
+# split string before "--"
+splitCategory(){
+	echo "$1" |
+	tr '[:upper:]' '[:lower:]' |
+	sed -E "s/(--).*//g" 
+}
+# split string after "--"
+splitSubcategory(){
+	echo "$1" |
+	tr '[:upper:]' '[:lower:]' |
+	sed -E "s/.*(--)//g" 
+}
+
+
+########## Features
+create-id() {
+	echo "$MAINCATEGORY/$TITLE"
+}
+
+create-branch() {
+	local ID=$( create-id )
+	echo "branch name is \"$ID\""
+	if [[ ! $(git branch --list $ID) = "" ]]
+	then
+		echo "branch already exists, changing branch"
+		git switch $ID
+		echo $ID
+		exit 0
+	else
+		echo "creating new branch"
+		git switch -c $ID
+	fi
+}
+
+create-article() {
+	local ID=$( create-id )
+	# write meta.json
+	META=$(
+		cat "./template/meta.json" |
+		sed "s/Camel Cased Title/$TITLE/g" | # title
+		sed "s/Name From Git/$NAME/g" | # name
+		sed "s/Email From Git/$EMAIL/g" | # email
+		if [[ $SUBCATEGORY = ""  ]]
+		then
+			sed "s/same-as-notion//g" # no subcategory
+		else
+			sed "s/same-as-notion/SUBCATEGORY/g" # insert subcategory
+		fi
+	)
+
+	# make category directory
+	if [[ ! -d "./$MAINCATEGORY" ]]
+	then
+		echo "creating new category directory \"$MAINCATEGORY\""
+		mkdir "./$MAINCATEGORY"
+	else
+		echo "category directory \"$MAINCATEGORY\" already exists"
+	fi
+
+	# make article directory
+	if [[ ! -d "./$ID" ]]
+	then
+		echo "creating new article directory \"$TITLE\""
+		mkdir "./$ID"
+	else
+		echo "article directory \"$TITLE\" already exists, creating branch"
+		create-branch
+		exit 0
+	fi
+
+	# copy template to the directory
+	echo "copying template to new article directory"
+	cp -a ./template/. ./$ID/
+
+	# re-write meta.json in the directory
+	echo "$META" > "./$ID/meta.json"
+	printf "meta.json edited\n"
+
+	# exit and open new shell on the directory
+	echo "new article $ID is created with template"
+	exit 0
+}
+
+
+########## User Input
+# modes
+MODES[0]="create id"
+MODES[1]="create branch"
+MODES[2]="create article"
+# mode select
+echo "Choose Creation Mode
+	1. create id
+	2. create branch
+	3. create article"
+while read -rp "mode number : " MODE && [ -z "$MODE" ]; do :; done
+# test selected mode
+if ! [[ $MODE =~ [0-9] ]]
+then
+	echo "mode should be number"
+	exit 1
+elif ! [[ $MODE -ge 0 && $MODE -le 2 ]]
+then
+	echo "mode must be between 0 and 2"
+	exit 1
+fi
+
+# read category and title
+while read -rp "Enter Category String : " INPUT_CATEGORY && [ -z "$INPUT_CATEGORY" ]; do :; done
+while read -rp "Enter Title String : " INPUT_TITLE && [ -z "$INPUT_TITLE" ]; do :; done
+
+# prompt user input
+echo "
+create mode : ${MODES[$MODE-1]} 
+category : $INPUT_CATEGORY
+title : $INPUT_TITLE
+"
+
+# reassure user about input result
+while read -rp "is this okay? [y/n] " OKAY && [ -z "$OKAY" ]; do :; done
+if [[ $OKAY == "n" ]]
+then
+	echo "abort"
+	exit 1
+fi
+
+
+########## Article Path Check
+ARTICLE_PATH="/Users/Jangwonsuh/Documents/Github/Article"
+if [ -d $ARTICLE_PATH ]
+then
+	cd $ARTICLE_PATH
+else
+	echo "no such directory $ARTICLE_PATH"
+	exit 1
+fi
+
+########## Generate Names
+TITLE=$( escape "$INPUT_TITLE" )
+MAINCATEGORY=$( escape $( splitCategory $INPUT_CATEGORY ) )
+SUBCATEGORY=$( escape $( splitSubcategory $INPUT_CATEGORY ) )
+EMAIL=$( git config user.email )
+NAME=$( git config user.name )
+
+if [ -z "$EMAIL" ]
+then
+	echo "your git's user email is not set, please set and then try again"
+	exit 1
+fi
+
+if [ -z "$NAME" ]
+then
+	echo "your git's user name is not set, please set and then try again"
+	exit 1
+fi
+
+case $MODE in
+	"1") create-id;;
+	"2") create-branch;;
+	"3") create-article;;
+esac
+
+exit 0
