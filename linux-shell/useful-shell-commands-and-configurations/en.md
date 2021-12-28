@@ -249,26 +249,101 @@ terminal (remote or local, multiple, user interface)
 
 ## ☑️ Shell Encryption TL;DR
 
-### Assymetric Encryption
+### How Do We Want to Encrypt Shells?
 
-- How it works
-  1. On protocol handshake, server send random string.
-  2. Client encrypts the string with private key, and send back to the server.
-  3. Server decrypts string with public key.
-     - If it matches initial string, success.
-     - If it doesn't match, failure.
-  4. If handshake successes, two shells will communicate 
+1. Authenticate remote shell connections
+2. End to end encrypt data between shells
 
-- Typical Assymetric Encryption Algorithms
-  - SSH
-  - ECDSA (elliptic curve digital signature algorithm)
+### Assymetric Encryption on Shell
 
-### SSH
+#### Difference Between Encryption Algorithms
 
-- Acronym for Secure Shell
-- 
+- Hash
+    - No key
+    - examle : SHA family
+- Symmetric
+    - 1 key
+    - example : AES
+- Assymetric
+    - 2 keys
+    - example : RSA, ECC (Elliptic Curve Cryptography)
 
-### SSH Protocol
+#### Assymetric Encryption Pipeline
+
+- There are two distinct, yet related keys called "public" and "private"
+- Keys are basically a long, random strings.
+- Algorithm can encrypt and decrypt the same string successfully, only when one of those two keys are provided.
+
+```mermaid
+flowchart LR
+	original-1([ORIGINAL_TEXT]) & public-key>PUBLIC_KEY]
+	==> 
+	encryption-algorithm[[Encryption\nAlgorithm]]
+    ==> 
+    encrypted-1([ENCRYPTED_TEXT])
+    
+	-.->
+    
+    encrypted-2([ENCRYPTED_TEXT])
+	encrypted-2 & private-key>PRIVATE_KEY]
+	==>
+	decryption-algorithm[[Decryption\nAlgorithm]]
+    ==>
+    original-2([ORIGINAL_TEXT])
+    
+    subgraph sender
+    	original-1
+    	public-key
+    	encryption-algorithm
+    	encrypted-1
+    end
+    
+    subgraph reciever
+    	encrypted-2
+    	private-key
+    	decryption-algorithm
+       	original-2
+    end
+```
+
+#### SSH Protocol
+
+- This diagram assumes that client's public key is already written on server's `~/.ssh/authorized_keys` and corresponding private key is configured on local machine.
+- To see detailed protocol pipeline, use -v flag on ssh protocol request i.e. `ssh -v [host]`
+- Assymetric encryption is only for the authentication phase. After authentication suceess, ssh will use symmetric keys to encrypt messages.
+- When you use password for ssh, authentication will also be done by symmetric encryption.
+
+```mermaid
+sequenceDiagram
+
+	client-->server: (Connection Established)
+
+	rect rgb(0,0,0,0)
+	Note over client,server: Initiation
+	client->>server: Request
+	client->>server: List of Available Protocol
+	server->>client: Chosen Protocol
+	end
+	
+	
+    rect rgb(0,0,0,0)
+    Note over client,server: Authentication
+	server->>client: Send Random Message (e.g. HELLO)
+	client-->>client: Encrypt Message with Private Key
+	client->>server: Send Encrypted Message (e.g. @!$%^)
+	server-->>server: Decrypt Message with Public Key
+	server--xclient: Message Unmatch : Auth Failed (e.g. EIDLC)
+    server->>client: Message Match : Auth Success (e.g. HELLO)
+	end
+	
+    rect rgb(0,0,0,0)
+    Note over client,server: Session (on  Success)
+    server->>client: Session Key Exchange (symmetrical)
+    end
+	
+```
+
+
 
 ## ☑️ Create and Manage User
 
@@ -345,7 +420,7 @@ awk -F: '$3 >= 1000' /etc/passwd
   - `gid` is user's primary group
   - everything behind `groups` is user's supplementary groups
 
-## ☑️ Configure SSH Access of the User
+## ☑️ Setup SSH Access of a New User
 
 > This section assumes OpenSSH version 8.8
 
@@ -1274,7 +1349,7 @@ echo $c		# foobar
 
 >  `if` and `brackets` must be spaced.
 
-```sh
+```bash
 if [[ <condition> ]]; then 
 	...
 elif [[]]; then
@@ -1295,7 +1370,7 @@ fi
 
 ### Integer Comparison Operators
 
-```sh
+```bash
 -eq # Equal
 -ne # Not equal
 -lt # Less than
