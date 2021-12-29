@@ -1,5 +1,8 @@
 {
 	"author": "Jangwon Suh",
-	"title": "Full Introduction to Shell Commands and Configurations",
-	"subcategory": ["network-and-server","auth-security","core-cs","standards"]
+	"email": "jan9won@gmail.com",
+	"title": "Leaning Core CS Concepts with Shell Commands and Configurations",
+	"subcategory": ["core-cs",""network-and-server","auth-security","standards"],
+	"created": "",
+	"edited": ""
 }

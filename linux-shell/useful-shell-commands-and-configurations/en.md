@@ -247,31 +247,30 @@ terminal (remote or local, multiple, user interface)
 
 # Auth & Permission
 
-## ☑️ Shell Encryption TL;DR
+## Shell Encryption
 
-### How Do We Want to Encrypt Shells?
+### What Do We Want
 
-1. Authenticate remote shell connections
-2. End to end encrypt data between shells
+1. Authenticate user
+2. End to end encrypt data
 
-### Assymetric Encryption on Shell
+### Encryption Algorithms
 
-#### Difference Between Encryption Algorithms
+#### Difference Between Algorithms
 
-- Hash
-    - No key
-    - examle : SHA family
-- Symmetric
-    - 1 key
-    - example : AES
-- Assymetric
-    - 2 keys
-    - example : RSA, ECC (Elliptic Curve Cryptography)
+|                         | Hashing (not an encryption)                                  | Symmetric Encryption                                         | Assymetric Encryption                                        |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| TL;DR                   | A function to **irreversibly** manipulate any source string into fixed length random string. | Encrypt a source string into a random string that is **only decryptable with a single key.** | Encrypt a source string into a random string that is **only decryptable with two discrete keys.** |
+| Number of Keys          | -                                                            | 1 key (shared-secret)                                        | 2 keys (public, private)                                     |
+| Speed                   | fast speed                                                   | fast speed                                                   | moderate speed                                               |
+| Related Algorithms      | MD5, SHA                                                     | AES                                                          | RSA, ECC, DH                                                 |
+| Use Cases               | Encryption, Hash Tables, File Naming                         | Messaging                                                    | Authentication                                               |
+| When Key is Compromised | -                                                            | both sides are compromised                                   | only one side is compromised                                 |
 
 #### Assymetric Encryption Pipeline
 
 - There are two distinct, yet related keys called "public" and "private"
-- Keys are basically a long, random strings.
+- Keys are basically a long, randomly generated strings.
 - Algorithm can encrypt and decrypt the same string successfully, only when one of those two keys are provided.
 
 ```mermaid
@@ -321,8 +320,8 @@ sequenceDiagram
 	rect rgb(0,0,0,0)
 	Note over client,server: Initiation
 	client->>server: Request
-	client->>server: List of Available Protocol
-	server->>client: Chosen Protocol
+	client->>server: List of Available Protocols (i.e. curve25519-sha256)
+	server->>client: Protocol Chosen
 	end
 	
 	
@@ -337,15 +336,21 @@ sequenceDiagram
 	end
 	
     rect rgb(0,0,0,0)
-    Note over client,server: Session (on  Success)
-    server->>client: Session Key Exchange (symmetrical)
+    Note over client,server: Session Starts (on Auth Success)
+    server->client: Session Key Exchange (Shared Secret)
+    server->client: Encrypted Messages (Symmetrical)
+    server-->client: Session Key Rekey
     end
-	
+    
+    
+	rect rgb(0,0,0,0)
+    Note over client,server: Session Closes/Timeouts or Pipe Breaks
+    end
 ```
 
 
 
-## ☑️ Create and Manage User
+## Create and Manage User
 
 ### Create a new user
 
