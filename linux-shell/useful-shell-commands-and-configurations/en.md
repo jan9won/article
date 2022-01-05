@@ -1,16 +1,8 @@
-{{TOC}}
-
-[TOC]
-
 ☑️ sign means I'm still working on.
 
 > I'm mainly use shell command on building React/React Native apps and its ci/cd pipelines, with a few backend stacks.
 
 > So I'll try not to be verbouse and to write mainly important shell commands for frontend + ci/cd usecases.
-
-
-
-
 
 # Introduction
 
@@ -2102,3 +2094,4 @@ backup() {
 >
 > - [bash](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html)
 > - [login and interactive shells](https://unix.stackexchange.com/questions/38175/difference-between-login-shell-and-non-login-shell)
+
